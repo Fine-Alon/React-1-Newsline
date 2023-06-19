@@ -13,13 +13,18 @@ button {
   display: flex;
   flex-flow: row wrap;
 }
-.card > *, .textContent > * {
+
+.card>*,
+.textContent>* {
   flex: 1 1 100%;
 }
-.card > * + * {
+
+.card>*+* {
   padding: 13px 0 0;
 }
-.card:hover h2 a, .card:focus-within h2 a {
+
+.card:hover h2 a,
+.card:focus-within h2 a {
   color: var(--orange);
 }
 
@@ -30,10 +35,12 @@ button {
     max-height: 107px;
     padding: 0 40px;
   }
-  .card > * {
+
+  .card>* {
     flex: 0 0;
   }
-  .card > * + * {
+
+  .card>*+* {
     padding: 0;
   }
 }
@@ -44,10 +51,13 @@ button {
     max-height: 147px;
     cursor: pointer;
   }
-  .card:hover, .card:focus-within {
-    outline: 1px solid var(--grey-demi-dark);
+
+  .card:hover,
+  .card:focus-within {
+    outline: 2px solid var(--grayF4);
   }
 }
+
 .title {
   font-size: 16px;
   line-height: 19px;
@@ -55,11 +65,19 @@ button {
   margin: 0;
 }
 
-.metaData{
+.metaData {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   font-size: 10px;
+  margin-bottom: 5px;
+}
+
+@media (min-width: 1024px) {
+  .metaData {
+    flex-flow: row-reverse nowrap;
+    justify-content: left;
+  }
 }
 
 .postLink {
@@ -78,7 +96,7 @@ button {
   left: 0;
 }
 
-.textContent{
+.textContent {
   display: flex;
   flex-flow: row wrap;
   padding: 22px 20px 13px;
@@ -86,20 +104,20 @@ button {
 
 @media all and (min-width: 1024px) {
   .textContent {
-    flex-basis:      540px;
-    order:           1;
-    margin:          0 0 0 38px;
-    flex-flow:       column-reverse nowrap;
+    flex-basis: 540px;
+    order: 1;
+    margin: 0 0 0 38px;
+    flex-flow: column-reverse nowrap;
     justify-content: center;
   }
 
-  .textContent > * {
+  .textContent>* {
     flex: 0 0;
   }
 
   .title {
-    padding:     0 0 10px 0;
-    font-size:   20px;
+    padding: 0 0 10px 0;
+    font-size: 20px;
     line-height: 23px;
   }
 
@@ -107,6 +125,7 @@ button {
     -webkit-line-clamp: 1;
   }
 }
+
 .userLink {
   display: flex;
   flex-flow: row nowrap;
@@ -126,6 +145,7 @@ button {
   color: var(--orange);
   position: relative;
   z-index: 1;
+  margin-right: 4px;
 }
 
 @media all and (min-width: 1024px) {
@@ -139,6 +159,7 @@ button {
     text-decoration: underline;
   }
 }
+
 .preview {
   max-height: 178px;
   margin: 0 -20px;
@@ -154,8 +175,8 @@ button {
 @media all and (min-width: 1024px) {
   .preview {
     flex-basis: 190px;
-    order:      0;
-    margin:     0;
+    order: 0;
+    margin: 0;
   }
 }
 
@@ -175,6 +196,7 @@ button {
   transform: rotate(90deg);
   border-radius: 31px;
 }
+
 .menuButton:active {
   background-color: rgba(51, 51, 51, 0.1);
 }
@@ -218,6 +240,7 @@ button {
     background-color: rgba(51, 51, 51, 0.1);
   }
 }
+
 .controls {
   position: relative;
   display: flex;
@@ -229,7 +252,8 @@ button {
   display: flex;
   flex-flow: row nowrap;
 }
-.actions > * + * {
+
+.actions>*+* {
   margin: 0 0 0 13px;
 }
 
@@ -244,7 +268,8 @@ button {
     display: none;
   }
 }
-.karmaCounter > * + * {
+
+.karmaCounter>*+* {
   padding: 0 0 0 4px;
 }
 
@@ -265,7 +290,8 @@ svg.down {
     justify-content: center;
     flex-flow: column nowrap;
   }
-  .karmaCounter > * + * {
+
+  .karmaCounter>*+* {
     padding: 7px 0 0;
   }
 
@@ -277,11 +303,60 @@ svg.down {
 }
 
 @media all and (min-width: 1540px) {
-  .karmaCounter > button.up:hover > svg > path {
+  .karmaCounter>button.up:hover>svg>path {
     fill: var(--green);
   }
 
-  .karmaCounter > button.down:hover > svg > path {
+  .karmaCounter>button.down:hover>svg>path {
     fill: var(--orange);
   }
+
+  .textContent {
+    flex-basis: 672px;
+  }
+
+  
 }
+
+.commentsButton {
+  display: flex;
+  align-items: normal;
+}
+
+.commentsButton * {
+  color: var(--greyC4);
+}
+
+.commentsNumber {
+  padding: 0 0 0 6px;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+@media all and (min-width: 1024px) {
+  .commentsButton {
+    display: none;
+  }
+}
+
+.shareButton {
+  width: 20px;
+  height: 20px;
+}
+
+.saveButton {
+  width: 20px;
+  height: 20px;
+}
+
+.publishedLabel {
+  margin-right: 5px;
+}
+
+@media(max-width: 1024px) {
+
+  .publishedLabel {
+    display: none;
+  }
+}
+
