@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './title.css';
+import styles from '../../card.css';
 
 export function Title() {
   return (
