@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './metadata.css';
+import styles from '../../card.css';
 
 export function MetaData() {
   return (
