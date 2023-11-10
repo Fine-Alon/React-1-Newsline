@@ -8,6 +8,7 @@ import {CardsList} from "./shared/CardsList";
 import {generateId, generateRandomString} from "./utils/js/generateRandomIndex";
 import {GenericList} from "./shared/GenericList";
 import {merge} from "./utils/js/merge";
+import {Dropdown} from "./shared/Dropdown";
 
 const LIST = [
     {As: 'li' as const, text: 'other some'},
@@ -21,11 +22,9 @@ function AppComponent() {
 
     const handleItemClick = (id: string) => {
         setList(list.filter(item => item.id !== id))
-        console.log(list)
     }
     const handleAddItem = () => {
         setList(list.concat(generateId({text: generateRandomString(), As: 'li' as const})))
-        console.log(list)
     }
 
 
@@ -34,11 +33,20 @@ function AppComponent() {
             <Header/>
             <Content>
                 <CardsList/>
-                <button onClick={handleAddItem}>Add Item</button>
-                <ul>
-                    <GenericList list={list.map(merge({onClick: handleItemClick}))}/>
-                </ul>
+                {/*<button onClick={handleAddItem}>Add Item</button>*/}
+                {/*<ul>*/}
+                {/*    <GenericList list={list.map(merge({onClick: handleItemClick}))}/>*/}
+                {/*</ul>*/}
             </Content>
+            <div style={{padding: 40}}>
+                <br/>
+                <Dropdown onOpen={() => console.log('opened')}
+                          onClose={() => console.log('closed')}
+                          isOpen={false}
+                          button={<button>Test</button>}>
+                    <CardsList/>
+                </Dropdown>
+            </div>
         </Layout>
     )
 }
