@@ -4,13 +4,11 @@ import {Preview} from './Preview';
 import {Menu} from './Menu';
 import {Controls} from './Controls';
 
-export function Card() {
-    return (
-        <>
-            <TextContent/>
-            <Preview/>
-            <Menu/>
-            <Controls/>
-        </>
-    );
+export const Card: React.FC = () => {
+    return <>
+        <TextContent/>
+        <Preview/>
+        <Menu/>
+        <Controls/>
+    </>
 };

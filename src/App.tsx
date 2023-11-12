@@ -15,7 +15,6 @@ const cardArr = [
     {As: 'li' as const, text: <Card/>},
     {As: 'li' as const, text: <Card/>},
     {As: 'li' as const, text: <Card/>},
-    {As: 'li' as const, text: <Card/>},
 ].map(item => ({...generateId(item), className: cardStyles.card}))
 
 
