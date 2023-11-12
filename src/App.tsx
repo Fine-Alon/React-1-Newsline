@@ -4,49 +4,49 @@ import {hot} from "react-hot-loader/root";
 import {Layout} from "./shared/Layout";
 import {Header} from "./shared/Header";
 import {Content} from "./shared/Content";
-import {CardsList} from "./shared/CardsList";
-import {generateId, generateRandomString} from "./utils/js/generateRandomIndex";
+import {generateId} from "./utils/js/generateRandomIndex";
 import {GenericList} from "./shared/GenericList";
-import {merge} from "./utils/js/merge";
-import {Dropdown} from "./shared/Dropdown";
+import {Card} from "./shared/CardsList/Card";
+import styles from "./shared/CardsList/cardslist.css";
+import cardStyles from "./shared/CardsList/Card/card.css";
 
-const LIST = [
-    {As: 'li' as const, text: 'other some'},
-    {As: 'li' as const, text: 'some'},
-    {As: 'li' as const, text: 'some'},
-].map(generateId)
+const cardArr = [
+    {As: 'li' as const, text: <Card/>},
+    {As: 'li' as const, text: <Card/>},
+    {As: 'li' as const, text: <Card/>},
+    {As: 'li' as const, text: <Card/>},
+    {As: 'li' as const, text: <Card/>},
+].map(item => ({...generateId(item), className: cardStyles.card}))
+
 
 function AppComponent() {
 
-    const [list, setList] = React.useState(LIST)
+    const [list, setList] = React.useState(cardArr)
 
-    const handleItemClick = (id: string) => {
-        setList(list.filter(item => item.id !== id))
-    }
-    const handleAddItem = () => {
-        setList(list.concat(generateId({text: generateRandomString(), As: 'li' as const})))
-    }
-
+    /* const handleItemClick = (id: string) => {
+         setList(list.filter(item => item.id !== id))
+     }
+     const handleAddItem = () => {
+         setList(list.concat(generateId({text: generateRandomString(), As: 'li' as const})))
+     }*/
 
     return (
         <Layout>
             <Header/>
             <Content>
-                <CardsList/>
-                {/*<button onClick={handleAddItem}>Add Item</button>*/}
-                {/*<ul>*/}
-                {/*    <GenericList list={list.map(merge({onClick: handleItemClick}))}/>*/}
-                {/*</ul>*/}
+                <ul className={styles.cardsList}>
+                    <GenericList list={cardArr}/>
+                </ul>
             </Content>
-            <div style={{padding: 40}}>
-                <br/>
+            {/* <button onClick={handleAddItem}>Add Item</button>
+                <ul>
+                    <GenericList list={list.map(merge({onClick: handleItemClick}))}/>
+                </ul>
                 <Dropdown onOpen={() => console.log('opened')}
                           onClose={() => console.log('closed')}
-                          isOpen={false}
-                          button={<button>Test</button>}>
+                          button={<button>Test Open</button>}>
                     <CardsList/>
-                </Dropdown>
-            </div>
+                </Dropdown>*/}
         </Layout>
     )
 }

@@ -2,9 +2,9 @@ import React from 'react';
 import styles from './genericList.css';
 
 interface IItem {
-    text: string
+    text: string | React.ReactNode
     id: string
-    onClick: (id: string) => void
+    onClick?: (id: string) => void
     className?: string
     As?: 'a' | 'li' | 'button' | 'div'
     href?: string
@@ -19,20 +19,14 @@ const noop = () => {
 
 export function GenericList({list}: IGenericListProps) {
     return <>
-        {list.map(({
-                       As = 'div', text, id,
-                       onClick = noop, href, className
-                   }) => (
-            <As
-                key={id}
+        {list.map(({As = 'div', text, id,
+                       onClick = noop, href, className}) =>
+            (<As key={id}
                 className={className}
                 onClick={() => onClick(id)}
-                href={href}
-            >
+                href={href}>
                 {text}
-            </As>
-        ))
-
+            </As>))
         }
     </>
 }
