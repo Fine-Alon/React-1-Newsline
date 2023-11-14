@@ -10,6 +10,5 @@ export function withKey(key?: string) {
             )
 }
 
-
-const withIdKey = withKey('id')
+// {props.Array.map(withKey('IdForExample')(AnyComponent))}  ///  using example
 

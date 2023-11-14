@@ -5,6 +5,14 @@
 
 .listContainer{
     position: relative;
+    transform: rotate(0deg);
+}
+
+@media all and (min-width: 1024px) {
+    .listContainer{
+        position: relative;
+        transform: rotate(0deg);
+    }
 }
 
 .list{

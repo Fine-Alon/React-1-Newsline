@@ -4,8 +4,8 @@ import styles from './dropdown.css';
 
 interface IDropdownProps {
     button: React.ReactNode
-    btnStyles?:  string | undefined
     children: React.ReactNode
+    btnStyles?:  string | undefined
     isOpen?: boolean
     onOpen?: () => void
     onClose?: () => void

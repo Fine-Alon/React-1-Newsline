@@ -1,5 +1,7 @@
 import React from 'react';
+import {CommentsSvg, HideSvg, ReportSvg, SaveSvg, ShareSvg} from "../../../../icons";
 
+/*
 const hideSvg = <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M7 0C3.136 0 0 3.136 0 7C0 10.864 3.136 14 7 14C10.864 14 14 10.864 14 7C14
      3.136 10.864 0 7 0ZM7 12.6C3.906 12.6 1.4 10.094 1.4 7C1.4 5.705 1.841 4.515 2.583 3.57L10.43
@@ -27,19 +29,30 @@ const reportSvg = <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xm
         d="M0 14H16L8 0L0 14ZM8.72727 11.7895H7.27273V10.3158H8.72727V11.7895ZM8.72727 8.8421H7.27273V5.89474H8.72727V8.8421Z"
         fill="#999999"/>
 </svg>
+*/
 
 export const Comments: React.FC = () => {
-    return <>{commentsSvg}Comments </>
+    return <>{<CommentsSvg/>}Comments </>
 }
 export const Share: React.FC = () => {
-    return <>{shareSvg}Share </>
+    return <>{<ShareSvg/>}Share </>
 }
 export const Hide: React.FC = () => {
-    return <>{hideSvg}Hide </>
+    return <>{<HideSvg/>}Hide </>
 }
 export const Save: React.FC = () => {
-    return <>{saveSvg}Save </>
+    return <>{<SaveSvg/>}Save </>
 }
 export const Report: React.FC = () => {
-    return <>{reportSvg} Report </>
+    return <>{<ReportSvg/>} Report </>
+}
+
+interface CloseProps {
+    styles?: string
+}
+
+export const Close: React.FC<CloseProps> = (props) => {
+    return <>
+        <button className={props.styles}> Close</button>
+    </>
 }

@@ -1,0 +1,6 @@
+export * from './MenuSvg'
+export * from './HideSvg'
+export * from './SaveSvg'
+export * from './CommentsSvg'
+export * from './ShareSvg'
+export * from './ReportSvg'
