@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './genericList.css';
+import {NOOP} from "../../utils/js/noop";
 
 interface IItem {
     text: string | React.ReactNode | React.JSX.Element
@@ -14,14 +15,11 @@ interface IGenericListProps {
     list: IItem[]
 }
 
-const noop = () => {
-}
-
 export function GenericList({list}: IGenericListProps) {
     return <>
         {list.map(({
                        As = 'div', text, id,
-                       onClick = noop, href, className
+                       onClick = NOOP, href, className
                    }) =>
             (<As key={id}
                  className={className}

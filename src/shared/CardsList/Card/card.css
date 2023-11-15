@@ -184,6 +184,7 @@ button {
 .menu {
     position: absolute;
     order: 2;
+    z-index: 20;
     display: flex;
     align-items: center;
     flex: 0 0;
@@ -262,6 +263,7 @@ button {
 @media all and (min-width: 1024px) {
     .menu {
         position: relative;
+        z-index: 20;
         order: 2;
         display: flex;
         align-items: center;

@@ -9,25 +9,38 @@ import {GenericList} from "./shared/GenericList";
 import {Card} from "./shared/CardsList/Card";
 import styles from "./shared/CardsList/cardslist.css";
 import cardStyles from "./shared/CardsList/Card/card.css";
+import {merge} from "./utils/js/merge";
 
-const cardArr = [
+const onDeletePost = (id: string) => {
+    console.log(id)
+}
+
+const initialCardArr = [
     {As: 'li' as const, text: <Card/>},
     {As: 'li' as const, text: <Card/>},
     {As: 'li' as const, text: <Card/>},
     {As: 'li' as const, text: <Card/>},
-].map(item => ({...generateId(item), className: cardStyles.card}))
+].map(item => ({...generateId(item)}))
+
+const cardArrWithProps = initialCardArr.map(li => ({
+    As: 'li' as const,
+    text: <Card onDeletePost={onDeletePost} postId={li.id}/>,
+    className: cardStyles.card,
+    id: li.id
+}))
 
 
 function AppComponent() {
 
-    const [list, setList] = React.useState(cardArr)
+    const [cardArr, setCardArr] = React.useState(cardArrWithProps)
 
-    /* const handleItemClick = (id: string) => {
-         setList(list.filter(item => item.id !== id))
-     }
-     const handleAddItem = () => {
-         setList(list.concat(generateId({text: generateRandomString(), As: 'li' as const})))
-     }*/
+    /*const onDeletePost = (id: string) => {
+        console.log(id)
+        // setCardArr(cardArr.filter(card => card.id !== id))
+    }
+    const handleAddItem = () => {
+        setList(list.concat(generateId({text: generateRandomString(), As: 'li' as const})))
+    }*/
 
     return (
         <Layout>
