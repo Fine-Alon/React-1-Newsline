@@ -9,7 +9,7 @@ import {GenericList} from "./shared/GenericList";
 import {Card} from "./shared/CardsList/Card";
 import styles from "./shared/CardsList/cardslist.css";
 import cardStyles from "./shared/CardsList/Card/card.css";
-import {merge} from "./utils/js/merge";
+import {EColors, Text} from "./shared/Text";
 
 const onDeletePost = (id: string) => {
     console.log(id)
@@ -49,6 +49,10 @@ function AppComponent() {
                 <ul className={styles.cardsList}>
                     <GenericList list={cardArr}/>
                 </ul>
+                <br/>
+                <Text size={20} mobileSize={28} color={EColors.orange}> Lable1</Text>
+                <Text size={20}> Lable2</Text>
+                <Text size={20} mobileSize={16}> Lable3</Text>
             </Content>
             {/* <button onClick={handleAddItem}>Add Item</button>
                 <ul>
