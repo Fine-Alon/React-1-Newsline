@@ -16,23 +16,14 @@ interface IMenuProps {
 
 
 export const Menu: React.FC<IMenuProps> = ({postId, onDeletePost}) => {
-    const isDesktop = useMediaQuery({minWidth: 1024})
-
-    const menuListMob = [
-        // {text: <Comments/>},
-        {text: <Hide/>, onClick: onDeletePost},
-        // {text: <Share/>},
-        {text: <Report/>, onClick: onDeletePost},
-        // {text: <Save/>},
-        {text: <Close styles={styles.closeButton}/>},
-    ].map(generateId)
 
     const menuListDesk = [
-        {text: <Comments/>},
-        {text: <Share/>},
+        {text: <Comments/>, className: styles.mobileHidden},
+        {text: <Share/>, className: styles.mobileHidden},
         {text: <Hide/>, onClick: onDeletePost},
-        {text: <Save/>},
+        {text: <Save/>, className: styles.mobileHidden},
         {text: <Report/>, onClick: onDeletePost},
+        {text: <Close styles={styles.closeButton}/>,className: styles.desktopHidden},
     ].map(generateId)
 
 
@@ -44,13 +35,7 @@ export const Menu: React.FC<IMenuProps> = ({postId, onDeletePost}) => {
 
             {isDropdownClose &&
                 <div className={styles.dropdown}>
-                    {isDesktop
-                        ? <GenericList list={menuListDesk.map(item => ({
-                            ...item, postId: postId,
-                            onClick: () => item.onClick!(postId as string)
-                        }))}/>
-
-                        : <GenericList list={menuListMob.map(item => ({
+                    { <GenericList list={menuListDesk.map(item => ({
                             ...item, postId: postId,
                             onClick: () => item.onClick!(postId as string)
                         }))}/>
