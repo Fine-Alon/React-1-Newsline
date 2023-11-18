@@ -1,7 +1,17 @@
-import React from "react";
+import React, {useEffect} from "react";
 
-export const HideSvg = () => {
-    return <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+export const HideSvg = (props) => {
+    const [dimensions, setDimensions] = React.useState({width: 14, height: 14})
+
+    useEffect(() => {
+        setDimensions({
+            height: props.height ? props.height : 14,
+            width: props.width ? props.width : 14
+        })
+    }, [props.height, props.width])
+
+    return <svg width={dimensions.width} height={dimensions.height} viewBox="0 0 14 14" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
         <path d="M7 0C3.136 0 0 3.136 0 7C0 10.864 3.136 14 7 14C10.864 14 14 10.864 14 7C14
      3.136 10.864 0 7 0ZM7 12.6C3.906 12.6 1.4 10.094 1.4 7C1.4 5.705 1.841 4.515 2.583 3.57L10.43
       11.417C9.485 12.159 8.295 12.6 7 12.6ZM11.417

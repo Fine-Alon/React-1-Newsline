@@ -24,18 +24,22 @@ const iconComponent = {
 
 interface IIcon {
     name: IconsName
-    size?: number
+    width?: number
+    height?: number
 }
 
-export const Icon: React.FC<IIcon> = ({name, size }) => {
+export const Icon: React.FC<IIcon> = ({
+                                          name, width,
+                                          height
+                                      }) => {
     if (!(name in iconComponent)) {
         console.error('there is not such svgComponent')
         return null
     }
 
     const svgElement = React.cloneElement(iconComponent[name], {
-        width: size,
-        height: size,
+        width: width,
+        height: height,
     })
 
     return <>{svgElement}</>

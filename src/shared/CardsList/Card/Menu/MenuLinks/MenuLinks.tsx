@@ -3,7 +3,7 @@ import {Icon} from "../../../../Icon";
 
 
 export const Comments: React.FC = () => {
-    return <>{<Icon name={'CommentsSvg'} size={30}/>}Comments </>
+    return <>{<Icon name={'CommentsSvg'} height={15} width={15}/>}Comments </>
 }
 export const Share: React.FC = () => {
     return <>{<Icon name={'ShareSvg'}/>}Share </>
