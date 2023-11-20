@@ -4,16 +4,12 @@ import {SearchBlock} from './SearchBlock';
 import {ThreadTitle} from './ThreadTitle';
 import {SortBlock} from './SortBlock';
 
-interface IHeaderProps {
-    token: string
-}
-
-export const Header: React.FC<IHeaderProps> = ({token}) => {
+export const Header = () => {
     return (
         <header className={styles.header}>
             <ThreadTitle/>
             <SortBlock/>
-            <SearchBlock token={token}/>
+            <SearchBlock />
         </header>
     );
 }
