@@ -5,7 +5,6 @@ import {tokenContext} from "../shared/context/tokenContext";
 interface IUserData {
     name?: string
     iconImg?: string
-    data?: any
 }
 
 export const useUserData = () => {
@@ -20,8 +19,6 @@ export const useUserData = () => {
                 })
                 .then((res) => {
                     const userData = res.data
-                    console.log(res)
-                    console.log(userData.icon_img)
                     setData({iconImg: userData.icon_img, name: userData.name})
                 })
                 .catch(console.log)
