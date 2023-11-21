@@ -9,7 +9,7 @@ interface IContentProps {
 
 export function Content({children}: IContentProps) {
     return <main className={styles.content}>
-        <CardsList/>
+        <CardsListGeneric/>
         {children}
     </main>
 }

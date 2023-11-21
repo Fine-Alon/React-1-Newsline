@@ -1,31 +1,40 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styles from './cardslist.css';
-import { Card } from './Card';
+import {Card} from './Card';
 import {GenericList} from "../GenericList";
 import {generateId} from "../../utils/js/generateRandomIndex";
 import cardStyles from "./Card/card.css";
+import {postContext} from "../context/postContext";
 
 const onDeletePost = (id: string) => {
     console.log(id)
 }
 
 export function CardsListGeneric() {
-    const initialCardArr = [
-        {As: 'li' as const, text: <Card/>},
-    ].map(item => ({...generateId(item)}))
+    const postArr = useContext(postContext)
+/*
+    const [cardArr, setCardArr] = React.useState(postArr)
+*/
 
-    const cardArrWithProps = initialCardArr.map(li => ({
-        As: 'li' as const,
-        text: <Card onDeletePost={onDeletePost} postId={li.id}/>,
-        className: cardStyles.card,
-        id: li.id
-    }))
-
-    const [cardArr, setCardArr] = React.useState(cardArrWithProps)
+    const cardArr = postArr.map(post => (
+        {
+            As: 'li' as const,
+            text: <Card id={post.id}
+                        author={post.author}
+                        created={post.created}
+                        icon_img={post.icon_img}
+                        banner_img={post.banner_img}
+                        ups={post.ups} url={post.url}
+                        title={post.title}/>,
+            className: cardStyles.card,
+            id: post.id || ''
+        }
+    ))
 
     return (
-    <ul className={styles.cardsList}>
-        <GenericList list={cardArr}/>
-    </ul>
-  );
+        <ul className={styles.cardsList}>
+
+            <GenericList list={cardArr}/>
+        </ul>
+    );
 }

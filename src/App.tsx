@@ -48,4 +48,18 @@ function AppComponent() {
     )
 }
 
+/*    const initialCardArr = [
+        {text: <Card/>},
+    ].map(item => ({...generateId(item)}))
+
+    const cardArrWithProps = initialCardArr.map(li => ({
+        As: 'li' as const,
+        text: <Card onDeletePost={onDeletePost} postId={li.id}/>,
+        className: cardStyles.card,
+        id: li.id
+    }))
+
+    const [cardArr, setCardArr] = React.useState(cardArrWithProps)
+    */
+
 export const App = hot(() => <AppComponent/>)
