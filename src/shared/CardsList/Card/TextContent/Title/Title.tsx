@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import styles from '../../card.css';
 import {Post} from "../../../../Post";
 
@@ -8,18 +8,22 @@ interface ITitleProps {
 
 export function Title({title}: ITitleProps) {
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const handelClick = () => {
-        console.log('clicked')
-        setIsModalOpen(!isModalOpen)
+    const onOpen = () => {
+        console.log('modal is Open')
+        setIsModalOpen(true)
     }
-
+    const onClose = () => {
+        console.log('modal is Close')
+        setIsModalOpen(false)
+    }
     return (
-        <h2 className={styles.title} onClick={handelClick}>
+        <h2 className={styles.title} onClick={onOpen}>
             <button className={styles.postLink}>
-                {title ? title
+                {title
+                    ? title
                     : 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, voluptas? Iste.'}
             </button>
-            {isModalOpen && <Post/>}
+            {isModalOpen && <Post onClose={onClose}/>}
         </h2>
     );
 }

@@ -1,6 +1,15 @@
 
-.modal{
-  position: absolute;
-  top: 200px;
-  left: 600px;
+.modal {
+    position: absolute;
+    top: 15vh;
+    left: 50vw;
+    transform: translate(-50%, 0%);
+    padding: 50px 60px 36px 60px;
+    /*background-color: var(--white);*/
+    background-color: rgba(255, 165, 0, 0.33);
+    border-radius: 10px;
+}
+
+.content {
+    min-width: 840px;
 }
