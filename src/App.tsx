@@ -9,6 +9,7 @@ import {useToken} from "./hooks/useToken";
 import {tokenContext} from "./shared/context/tokenContext";
 import {UserContextProvider} from "./shared/context/userContext";
 import {PostContextProvider} from "./shared/context/postContext";
+import {Post} from "./shared/Post";
 
 function AppComponent() {
     const [token] = useToken()

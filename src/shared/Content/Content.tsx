@@ -4,10 +4,11 @@ import {CardsListGeneric} from "../CardsList/CardsListGeneric";
 import {CardsList} from "../CardsList";
 
 interface IContentProps {
+    id?: string;
     children?: React.ReactNode
 }
 
-export function Content({children}: IContentProps) {
+export const Content: React.FC<IContentProps> = ({children}) => {
     return <main className={styles.content}>
         <CardsListGeneric/>
         {children}

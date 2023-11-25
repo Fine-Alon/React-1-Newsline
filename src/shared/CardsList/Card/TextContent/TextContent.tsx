@@ -4,6 +4,7 @@ import { MetaData } from './MetaData';
 import { Title } from './Title';
 
 interface IMetaDataProps {
+    id?:string
     author?: string
     title?: string
     url?: string
