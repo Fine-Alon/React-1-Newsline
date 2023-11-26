@@ -20,6 +20,7 @@ export function CardsListGeneric() {
         {
             As: 'li' as const,
             text: <Card id={post.id}
+                        postId={post.id}
                         author={post.author}
                         created={post.created}
                         icon_img={post.icon_img}

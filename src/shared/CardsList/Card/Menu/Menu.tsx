@@ -26,11 +26,10 @@ export const Menu: React.FC<IMenuProps> = ({postId, onDeletePost}) => {
         {text: <Close styles={styles.closeButton}/>,className: styles.desktopHidden},
     ].map(generateId)
 
-
     const [isDropdownClose, setIsDropdownClose] = React.useState(true)
 
-    return <div className={styles.menu}>
-        <Dropdown btnStyles={styles.menuSvg}
+    return <div id={postId} className={styles.menu}>
+        <Dropdown btnStyles={styles.menuSvg} portalId={postId}
                   button={<button className={styles.menuButton}><MenuSvg/></button>}>
 
             {isDropdownClose &&
