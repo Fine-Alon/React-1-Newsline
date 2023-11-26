@@ -3,6 +3,7 @@ import styles from './post.css';
 import {createPortal} from "react-dom";
 import {PostContent} from "./PostContent";
 import {CommentForm} from "../CommentForm";
+import {Comments} from "../Comments";
 
 interface IPostProps {
     onClose?: () => void
@@ -31,6 +32,7 @@ export const Post = (props: IPostProps) => {
     return createPortal(<div className={styles.modal} ref={ref}>
         <PostContent/>
         <CommentForm/>
+        <Comments/>
     </div>, node)
 
 }

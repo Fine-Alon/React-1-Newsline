@@ -38,7 +38,6 @@ export function Dropdown(props: IDropdownProps) {
     }, [node,portalId]);
 
     if (!node) {
-        console.log(node)
         return null
     }
 

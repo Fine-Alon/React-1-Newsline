@@ -1,6 +1,5 @@
 import React from "react";
-import styles from "./icon.css";
-import {CommentsSvg, HideSvg, MenuSvg, ReportSvg, SaveSvg, ShareSvg} from "../icons";
+import {AnonSvg, CommentsSvg, HideSvg, MenuSvg, ReportSvg, SaveSvg, ShareSvg} from "../icons";
 
 enum EName {
     HideSvg = 'HideSvg',
@@ -9,6 +8,7 @@ enum EName {
     ReportSvg = 'ReportSvg',
     SaveSvg = 'SaveSvg',
     ShareSvg = 'ShareSvg',
+    AnonSvg = 'AnonSvg',
 }
 
 type IconsName = keyof typeof EName
@@ -20,6 +20,7 @@ const iconComponent = {
     ReportSvg: <ReportSvg/>,
     SaveSvg: <SaveSvg/>,
     ShareSvg: <ShareSvg/>,
+    AnonSvg: <AnonSvg/>,
 }
 
 interface IIcon {

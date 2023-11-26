@@ -2,11 +2,11 @@ import React from 'react';
 import {Icon} from "../../../../Icon";
 
 
-export const Comments: React.FC = () => {
+export const CommentBtn: React.FC = () => {
     return <>{<Icon name={'CommentsSvg'} height={15} width={15}/>}Comments </>
 }
 export const Share: React.FC = () => {
-    return <>{<Icon name={'ShareSvg'}/>}Share </>
+    return <>{<Icon  name={'ShareSvg'}/>}Share </>
 }
 export const Hide: React.FC = () => {
     return <>{<Icon name={'HideSvg'}/>}Hide </>
