@@ -1,7 +1,8 @@
 import React, {useEffect, useRef} from 'react';
 import styles from './post.css';
 import {createPortal} from "react-dom";
-import {Title} from "../CardsList/Card/TextContent/Title";
+import {PostContent} from "./PostContent";
+import {CommentForm} from "../CommentForm";
 
 interface IPostProps {
     onClose?: () => void
@@ -13,7 +14,7 @@ export const Post = (props: IPostProps) => {
     useEffect(() => {
         const handelClick = (event: MouseEvent) => {
             if (event.target instanceof Node && !ref.current?.contains(event.target)) {
-                 props.onClose?.()
+                props.onClose?.()
             }
         }
         document.addEventListener("click", handelClick)
@@ -28,17 +29,8 @@ export const Post = (props: IPostProps) => {
         return null;
     }
     return createPortal(<div className={styles.modal} ref={ref}>
-        <h2>Here will be post, Here will be post title, Here will be post</h2>
-
-        <div className={styles.content} >
-            <p>Here will be post</p>
-            <p>Here will be post</p>
-            <p>Here will be post</p>
-            <p>Here will be post</p>
-            <p>Here will be post</p>
-            <p>Here will be post</p>
-            <p>Here will be post</p>
-        </div>
+        <PostContent/>
+        <CommentForm/>
     </div>, node)
 
 }

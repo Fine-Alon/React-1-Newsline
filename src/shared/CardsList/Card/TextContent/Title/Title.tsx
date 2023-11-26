@@ -8,22 +8,14 @@ interface ITitleProps {
 
 export function Title({title}: ITitleProps) {
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const onOpen = () => {
-        console.log('modal is Open')
-        setIsModalOpen(true)
-    }
-    const onClose = () => {
-        console.log('modal is Close')
-        setIsModalOpen(false)
-    }
     return (
-        <h2 className={styles.title} onClick={onOpen}>
+        <h2 className={styles.title} onClick={() => {setIsModalOpen(true)}}>
             <button className={styles.postLink}>
                 {title
                     ? title
                     : 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, voluptas? Iste.'}
             </button>
-            {isModalOpen && <Post onClose={onClose}/>}
+            {isModalOpen && <Post onClose={() => {setIsModalOpen(false)}}/>}
         </h2>
     );
 }
