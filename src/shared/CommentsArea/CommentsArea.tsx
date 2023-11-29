@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import styles from './commentsArea.css';
 import {Comments} from "../Comments";
 import {GenericList} from "../GenericList";
@@ -12,7 +12,7 @@ interface ICommentsArea {
 }
 
 export const CommentsArea: React.FC<ICommentsArea> = ({postId, handelMenuClick}) => {
-
+    const refTextarea = useRef<HTMLTextAreaElement>(null);
     const menuListDesk = [
         {text: <CommentBtn/>, className: styles.mobileHidden},
         {text: <Share/>, className: styles.mobileHidden},
@@ -28,7 +28,7 @@ export const CommentsArea: React.FC<ICommentsArea> = ({postId, handelMenuClick})
                 onClick: () => item.onClick!(postId as string)
             }))}/>}
         </div>
-        <CommentForm/>
+        <CommentForm refTextarea={refTextarea} />
         <Comments/>
     </>
 }

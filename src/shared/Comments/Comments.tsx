@@ -1,7 +1,6 @@
 import React, {useRef, useState} from 'react';
 import styles from './Comments.css';
-import {CommentBtn, Report, Share} from "../CardsList/Card/Menu/MenuLinks";
-import {AnonSvg, CommentsSvg, ReportSvg, ShareSvg} from "../icons";
+import {ReportSvg, ShareSvg} from "../icons";
 import {Icon} from "../Icon";
 import {CommentForm} from "../CommentsArea/CommentForm";
 
@@ -14,10 +13,8 @@ export const Comments: React.FC = (props) => {
 
     const refTextarea = useRef<HTMLTextAreaElement>(null)
     const handleClick = () => {
-        console.log('Waiting for comment')
         setOpenCommentDesk(!openCommentDesk)
         refTextarea.current?.focus()
-
     }
 
     return <>
@@ -40,13 +37,9 @@ export const Comments: React.FC = (props) => {
                 }
             </div>
             <div className={styles.controls}>
-
-
                 <button className={styles.control} onClick={handleClick}>
                     <Icon name={'CommentsSvg'} height={15} width={15}/><span>Answer</span>
                 </button>
-
-
                 <button className={styles.control}>
                     <ShareSvg/><span>Share</span>
                 </button>
@@ -55,6 +48,6 @@ export const Comments: React.FC = (props) => {
                 </button>
             </div>
         </div>
-        {openCommentDesk ? <CommentForm ref={refTextarea}/> : null}
+        {openCommentDesk ? <CommentForm refTextarea={refTextarea}/> : null}
     </>
 }

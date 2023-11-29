@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, { useState} from 'react';
 import styles from '../../card.css';
 import {Post} from "../../../../Post";
 import {NOOP} from "../../../../../utils/js/noop";

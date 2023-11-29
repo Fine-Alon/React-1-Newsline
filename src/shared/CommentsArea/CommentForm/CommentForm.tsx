@@ -1,27 +1,39 @@
-import React, {ChangeEvent, FormEvent, forwardRef, useContext} from 'react';
+import React, {ChangeEvent, FormEvent, forwardRef, useContext, useEffect} from 'react';
 import styles from './commentForm.css';
 import {commentContext} from "../../context/commentContext";
-interface ICommentForm {
-    ref?:React.Ref<any>
+
+interface ICommentFormProps {
+    refTextarea: React.RefObject<HTMLTextAreaElement>
 }
 
-export const CommentForm: React.FC<ICommentForm> =forwardRef (({ref}) => {
-    const {value, onChange} = useContext(commentContext)
-    const handleSubmit = (event: FormEvent) => {
-        event.preventDefault()
-    }
-    const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        onChange(event.target.value)
-    }
+interface CommentFormRef {
+    focus: () => void;
+}
 
-    return <>
-        <form className={styles.form} onSubmit={handleSubmit}>
-            <textarea ref={ref} className={styles.input} onChange={handleChange} value={value}/>
-            <div className={styles.form_bottom}>
-                <span className={styles.controls}>here will be some CONTROLS</span>
-                <button type={"submit"} className={styles.btnSubmit}>comment</button>
-            </div>
-        </form>
-    </>
-})
+export const CommentForm = forwardRef<CommentFormRef, ICommentFormProps>(
+    ({refTextarea}, ref) => {
+        const {value, onChange} = useContext(commentContext)
+
+        const handleSubmit = (event: FormEvent) => {
+            event.preventDefault()
+        }
+        const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+            onChange(event.target.value)
+        }
+
+        // Use useEffect to focus the textarea when the component mounts
+        useEffect(() => {
+            refTextarea?.current?.focus();
+        }, [refTextarea]);
+        return <>
+            <form className={styles.form} onSubmit={handleSubmit}>
+                <textarea ref={refTextarea} className={styles.input} onChange={handleChange} value={value}/>
+                <div className={styles.form_bottom}>
+                    <span className={styles.controls}>here will be some CONTROLS</span>
+                    <button type={"submit"} className={styles.btnSubmit}>comment</button>
+                </div>
+            </form>
+        </>
+    }
+)
 
