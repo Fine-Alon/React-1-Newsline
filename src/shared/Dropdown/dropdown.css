@@ -1,24 +1,34 @@
 .container{
+    position: relative;
+    min-width: 100px;
     width: 100%;
-    flex: 1 1 0%;
+    flex: 1 1 0;
+    display: flex;
+    justify-content: right;
 }
 
 .listContainer{
-    position: relative;
+    position: absolute;
+    z-index: 30;
+    top: 0;
+    right: 0;
+    background-color: transparent;
     transform: rotate(0deg);
+    width: 100vw;
+    height: 100vh;
 }
 
 @media all and (min-width: 1024px) {
     .listContainer{
-        position: relative;
+        position: absolute;
         transform: rotate(0deg);
     }
 }
 
 .list{
-    position: absolute;
+/*    position: absolute;
     left: 0;
     top: 0;
     width: 100%;
-    height: 100%;
+    height: 100%;*/
 }

@@ -1,0 +1,20 @@
+.menu {
+    display: flex;
+    border-top: 1px solid var(--greyD9);
+    margin-bottom: 34px;
+    padding-top: 20px;
+    margin-top:40px;
+}
+
+.menu div {
+    display: flex;
+    align-items: center;
+    margin-bottom: -3px;
+    color: var(--grey99);
+    margin-right: 30px;
+    cursor: pointer;
+}
+
+.menu div svg {
+    margin-right: 6px;
+}

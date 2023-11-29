@@ -2,20 +2,21 @@ import React, {useEffect, useRef} from 'react';
 import styles from './post.css';
 import {createPortal} from "react-dom";
 import {PostContent} from "./PostContent";
-import {CommentForm} from "../CommentForm";
-import {Comments} from "../Comments";
+import {CommentsArea} from "../CommentsArea";
 
 interface IPostProps {
     onClose?: () => void
+    postId?: string
+    handelMenuClick?: (postId: string) => void
 }
 
-export const Post = (props: IPostProps) => {
-    const ref = useRef<HTMLDivElement>(null);
+export const Post = ({onClose,handelMenuClick,postId}: IPostProps) => {
+    const ref = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         const handelClick = (event: MouseEvent) => {
             if (event.target instanceof Node && !ref.current?.contains(event.target)) {
-                props.onClose?.()
+                onClose?.()
             }
         }
         document.addEventListener("click", handelClick)
@@ -31,8 +32,7 @@ export const Post = (props: IPostProps) => {
     }
     return createPortal(<div className={styles.modal} ref={ref}>
         <PostContent/>
-        <CommentForm/>
-        <Comments/>
+        <CommentsArea postId={postId} handelMenuClick={handelMenuClick}/>
     </div>, node)
 
 }

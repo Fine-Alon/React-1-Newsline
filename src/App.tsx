@@ -40,12 +40,7 @@ function AppComponent() {
                             {/* <button onClick={handleAddItem}>Add Item</button>
                 <ul>
                     <GenericList list={list.map(merge({onClick: handleItemClick}))}/>
-                </ul>
-                <Dropdown onOpen={() => console.log('opened')}
-                          onClose={() => console.log('closed')}
-                          button={<button>Test Open</button>}>
-                    <CardsList/>
-                </Dropdown>*/}
+                </ul>*/}
                         </Layout>
                     </CommentContextProvider>
                 </PostContextProvider>
@@ -56,16 +51,6 @@ function AppComponent() {
 
 /*    const initialCardArr = [
         {text: <Card/>},
-    ].map(item => ({...generateId(item)}))
-
-    const cardArrWithProps = initialCardArr.map(li => ({
-        As: 'li' as const,
-        text: <Card onDeletePost={onDeletePost} postId={li.id}/>,
-        className: cardStyles.card,
-        id: li.id
-    }))
-
-    const [cardArr, setCardArr] = React.useState(cardArrWithProps)
-    */
+    ].map(item => ({...generateId(item)}))    */
 
 export const App = hot(() => <AppComponent/>)
