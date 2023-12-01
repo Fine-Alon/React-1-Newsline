@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../../card.css';
+import {utcToLeftTime} from "../../../../../utils/js/dateTransformator";
 
 interface IMetaDataProps {
     author?: string
@@ -21,7 +22,10 @@ export function MetaData({author, url, icon_img, created}: IMetaDataProps) {
                 <a href={url ? url : '#user-url'} className={styles.username}>{author ? author : 'Rick Griens'}</a>
             </div>
             <span className={styles.createdAt}>
-               <span className={styles.publishedLabel}>published</span>{created ? created : ' 8 hours ago'}z
+               <span
+                   className={styles.publishedLabel}>published</span>{created
+                ? utcToLeftTime(created) + ' hours ago'
+                : ' 8 hours ago'}
             </span>
         </div>
     );

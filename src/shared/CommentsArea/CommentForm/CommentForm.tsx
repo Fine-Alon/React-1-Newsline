@@ -4,14 +4,12 @@ import {commentContext} from "../../context/commentContext";
 
 interface ICommentFormProps {
     refTextarea: React.RefObject<HTMLTextAreaElement>
+    id?: string
+    postId?: string
 }
 
-interface CommentFormRef {
-    focus: () => void;
-}
-
-export const CommentForm = forwardRef<CommentFormRef, ICommentFormProps>(
-    ({refTextarea}, ref) => {
+export const CommentForm = forwardRef<HTMLTextAreaElement, ICommentFormProps>(
+    ({refTextarea, id, postId}, ref) => {
         const {value, onChange} = useContext(commentContext)
 
         const handleSubmit = (event: FormEvent) => {

@@ -6,9 +6,11 @@ import {CommentForm} from "../CommentsArea/CommentForm";
 
 interface ICommentProps {
     userComment?: string
+    postId?: string
+    id?: string
 }
 
-export const Comments: React.FC = (props) => {
+export const Comments: React.FC<ICommentProps> = ({id,postId}) => {
     const [openCommentDesk, setOpenCommentDesk] = useState(false)
 
     const refTextarea = useRef<HTMLTextAreaElement>(null)

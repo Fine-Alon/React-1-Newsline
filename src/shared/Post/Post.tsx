@@ -6,11 +6,12 @@ import {CommentsArea} from "../CommentsArea";
 
 interface IPostProps {
     onClose?: () => void
-    postId?: string
     handelMenuClick?: (postId: string) => void
+    postId?: string
+    id?: string
 }
 
-export const Post = ({onClose,handelMenuClick,postId}: IPostProps) => {
+export const Post = ({onClose,id,handelMenuClick,postId}: IPostProps) => {
     const ref = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
@@ -32,7 +33,7 @@ export const Post = ({onClose,handelMenuClick,postId}: IPostProps) => {
     }
     return createPortal(<div className={styles.modal} ref={ref}>
         <PostContent/>
-        <CommentsArea postId={postId} handelMenuClick={handelMenuClick}/>
+        <CommentsArea id={id} postId={postId} handelMenuClick={handelMenuClick}/>
     </div>, node)
 
 }

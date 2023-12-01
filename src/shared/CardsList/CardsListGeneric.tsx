@@ -2,7 +2,6 @@ import React, {useContext} from 'react';
 import styles from './cardslist.css';
 import {Card} from './Card';
 import {GenericList} from "../GenericList";
-import {generateId} from "../../utils/js/generateRandomIndex";
 import cardStyles from "./Card/card.css";
 import {postContext} from "../context/postContext";
 
@@ -12,14 +11,12 @@ const onDeletePost = (id: string) => {
 
 export function CardsListGeneric() {
     const postArr = useContext(postContext)
-/*
-    const [cardArr, setCardArr] = React.useState(postArr)
-*/
 
     const cardArr = postArr.map(post => (
         {
             As: 'li' as const,
-            text: <Card id={post.id}
+            text: <Card key={post.id}
+                        id={post.id}
                         postId={post.id}
                         author={post.author}
                         created={post.created}
@@ -34,7 +31,6 @@ export function CardsListGeneric() {
 
     return (
         <ul className={styles.cardsList}>
-
             <GenericList list={cardArr}/>
         </ul>
     );

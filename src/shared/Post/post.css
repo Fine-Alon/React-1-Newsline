@@ -1,6 +1,6 @@
 .modal {
     position: absolute;
-    z-index: 10;
+    z-index: 20;
     top: 15vh;
     left: 50vw;
     transform: translate(-50%, 0%);

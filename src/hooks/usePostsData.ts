@@ -18,7 +18,7 @@ export const usePostData = () => {
                         id: data.data.id,
                         title: data.data.title,
                         author: data.data.author,
-                        created: data.data.created,
+                        created: data.data.created_utc * 1000,
                         banner_img: data.data.sr_detail.banner_img,
                         icon_img: data.data.sr_detail.icon_img,
                         ups: data.data.ups,
