@@ -1,18 +1,21 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styles from './commentsArea.css';
 import {Comments} from "../Comments";
 import {GenericList} from "../GenericList";
 import {CommentBtn, Hide, Report, Save, Share} from "../CardsList/Card/Menu/MenuLinks";
 import {generateId} from "../../utils/js/generateRandomIndex";
 import {CommentForm} from "./CommentForm";
+import {useToken} from "../../hooks/useToken";
+import axios from "axios";
 
 interface ICommentsArea {
     postId?: string
-    id?: string
+    id: string | undefined
     handelMenuClick?: (postId: string) => void
+    comments?: Object[]
 }
 
-export const CommentsArea: React.FC<ICommentsArea> = ({postId,id, handelMenuClick}) => {
+export const CommentsArea: React.FC<ICommentsArea> = ({postId, id, handelMenuClick}) => {
     const refTextarea = useRef<HTMLTextAreaElement>(null);
     const menuListDesk = [
         {text: <CommentBtn/>, className: styles.mobileHidden},
@@ -29,7 +32,7 @@ export const CommentsArea: React.FC<ICommentsArea> = ({postId,id, handelMenuClic
                 onClick: () => item.onClick!(postId as string)
             }))}/>}
         </div>
-        <CommentForm id={id} postId={postId} refTextarea={refTextarea}/>
+        <CommentForm  id={id} postId={postId} refTextarea={refTextarea}/>
         <Comments id={id} postId={postId}/>
     </>
 }

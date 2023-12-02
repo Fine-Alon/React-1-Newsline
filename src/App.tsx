@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, { useState} from "react";
 import './main.global.css'
 import {hot} from "react-hot-loader/root";
 import {Layout} from "./shared/Layout";
@@ -9,20 +9,15 @@ import {useToken} from "./hooks/useToken";
 import {tokenContext} from "./shared/context/tokenContext";
 import {UserContextProvider} from "./shared/context/userContext";
 import {PostContextProvider} from "./shared/context/postContext";
-import {Post} from "./shared/Post";
 import {commentContext} from "./shared/context/commentContext";
 
 function AppComponent() {
     const [token] = useToken()
     const [commentValue, setCommentValue] = useState('')
-    /*const onDeletePost = (id: string) => {
-        console.log(id)
-        // setCardArr(cardArr.filter(card => card.id !== id))
-    }
+    /*
     const handleAddItem = () => {
         setList(list.concat(generateId({text: generateRandomString(), As: 'li' as const})))
     }*/
-
     const CommentContextProvider = commentContext.Provider
     return (
         <tokenContext.Provider value={token}>
@@ -37,10 +32,6 @@ function AppComponent() {
                                 <Text size={20}> Label2</Text>
                                 <Text size={20} mobileSize={16}> Label3</Text>
                             </Content>
-                            {/* <button onClick={handleAddItem}>Add Item</button>
-                <ul>
-                    <GenericList list={list.map(merge({onClick: handleItemClick}))}/>
-                </ul>*/}
                         </Layout>
                     </CommentContextProvider>
                 </PostContextProvider>
@@ -48,9 +39,4 @@ function AppComponent() {
         </tokenContext.Provider>
     )
 }
-
-/*    const initialCardArr = [
-        {text: <Card/>},
-    ].map(item => ({...generateId(item)}))    */
-
 export const App = hot(() => <AppComponent/>)

@@ -4,3 +4,8 @@ export function merge<O extends object>(obj: O) {
         ...obj2,
     })
 }
+
+/*
+  const handleAddItem = () => {
+      setList(list.concat(generateId({text: generateRandomString(), As: 'li' as const})))
+  }*/

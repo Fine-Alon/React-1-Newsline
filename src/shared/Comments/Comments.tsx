@@ -1,19 +1,22 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styles from './Comments.css';
 import {ReportSvg, ShareSvg} from "../icons";
 import {Icon} from "../Icon";
 import {CommentForm} from "../CommentsArea/CommentForm";
+import {useToken} from "../../hooks/useToken";
+import axios from "axios";
 
 interface ICommentProps {
-    userComment?: string
+    comments?: Object[]
     postId?: string
     id?: string
 }
 
-export const Comments: React.FC<ICommentProps> = ({id,postId}) => {
+export const Comments: React.FC<ICommentProps> = ({id, postId}) => {
     const [openCommentDesk, setOpenCommentDesk] = useState(false)
-
     const refTextarea = useRef<HTMLTextAreaElement>(null)
+
+
     const handleClick = () => {
         setOpenCommentDesk(!openCommentDesk)
         refTextarea.current?.focus()
@@ -50,6 +53,6 @@ export const Comments: React.FC<ICommentProps> = ({id,postId}) => {
                 </button>
             </div>
         </div>
-        {openCommentDesk ? <CommentForm refTextarea={refTextarea}/> : null}
+        {openCommentDesk ? <CommentForm  refTextarea={refTextarea}/> : null}
     </>
 }

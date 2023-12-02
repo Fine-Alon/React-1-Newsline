@@ -1,16 +1,40 @@
-import React, {ChangeEvent, FormEvent, forwardRef, useContext, useEffect} from 'react';
+import React, {ChangeEvent, FormEvent, forwardRef, useContext, useEffect, useState} from 'react';
 import styles from './commentForm.css';
 import {commentContext} from "../../context/commentContext";
+import {useToken} from "../../../hooks/useToken";
+import axios from "axios";
 
 interface ICommentFormProps {
     refTextarea: React.RefObject<HTMLTextAreaElement>
     id?: string
     postId?: string
+    comments?: Object[]
 }
 
 export const CommentForm = forwardRef<HTMLTextAreaElement, ICommentFormProps>(
     ({refTextarea, id, postId}, ref) => {
         const {value, onChange} = useContext(commentContext)
+
+        const token = useToken()
+        const [comments, setComments] = useState<Comment[]>([]);
+
+        useEffect(() => {
+            if (!token || token.length <= 0 || token === undefined) return
+            if (!id) return
+
+            axios.get(`https://oauth.reddit.com/comments/${id}`, {
+                headers: {Authorization: `Bearer ${token}`},
+                params: {limit: 10},
+            })
+                .then((res) => {
+                    const data = res.data
+                    console.log(data)
+                    // setComments(data)
+                })
+                .catch((error) => {
+                    console.log("Error fetching comments:", error)
+                })
+        }, [id]);
 
         const handleSubmit = (event: FormEvent) => {
             event.preventDefault()
