@@ -7,6 +7,7 @@ import {NOOP} from "../../../utils/js/noop";
 
 interface ICardProps {
     postId?: string
+    subreddit?: string | undefined
     onDeletePost?: (postId: string) => void
     author?: string
     created?: string
@@ -21,6 +22,7 @@ interface ICardProps {
 export const Card: React.FC<ICardProps> = (props) => {
     const {
         postId,
+        subreddit,
         onDeletePost = NOOP,
         author, created,
         banner_img, icon_img,
@@ -33,7 +35,7 @@ export const Card: React.FC<ICardProps> = (props) => {
     }
 
     return <>
-        <TextContent created={created} id={id} postId={postId} author={author} title={title} url={url} icon_img={icon_img}/>
+        <TextContent created={created} id={id} postId={postId} subreddit={subreddit} author={author} title={title} url={url} icon_img={icon_img}/>
         <Preview banner_img={banner_img} />
         <Menu postId={postId} onDeletePost={handelMenuClick}/>
         <Controls ups={ups}/>

@@ -3,7 +3,6 @@ import styles from './header.css';
 import {SearchBlock} from './SearchBlock';
 import {ThreadTitle} from './ThreadTitle';
 import {SortBlock} from './SortBlock';
-import {Post} from "../Post";
 
 export const Header = () => {
     return (

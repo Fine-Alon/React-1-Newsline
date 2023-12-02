@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import {useToken} from "./useToken";
 
@@ -14,8 +14,10 @@ export const usePostData = () => {
                     headers: {Authorization: `bearer ${token}`}
                 })
                 .then((res) => {
+                    // console.log(res.data.data.children[1].data.subreddit)
                     const bestPostArr = res.data.data.children.map((data: { data: any }) => ({
                         id: data.data.id,
+                        subreddit: data.data.subreddit,
                         title: data.data.title,
                         author: data.data.author,
                         created: data.data.created_utc * 1000,

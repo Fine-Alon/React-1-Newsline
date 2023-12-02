@@ -1,21 +1,22 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import styles from './post.css';
 import {createPortal} from 'react-dom';
 import {PostContent} from './PostContent';
 import {CommentsArea} from '../CommentsArea';
-import {usePostsComments} from '../../hooks/usePostsComments';
-import {useToken} from "../../hooks/useToken";
-import axios from "axios";
+import {usePostsComments} from "../../hooks/usePostsComments";
 
 interface IPostProps {
     onClose?: () => void;
     handelMenuClick?: (postId: string) => void;
-    postId?: string;
+    postId?: string | undefined
+    subreddit?: string | undefined
     id?: string;
 }
 
-export const Post = ({onClose, id, handelMenuClick, postId}: IPostProps) => {
+export const Post = ({onClose, subreddit, id, handelMenuClick, postId}: IPostProps) => {
     const ref = useRef<HTMLDivElement>(null);
+    if (!postId || !subreddit) return null
+    const comments = usePostsComments(postId, subreddit)
 
     useEffect(() => {
         const handelClick = (event: MouseEvent) => {

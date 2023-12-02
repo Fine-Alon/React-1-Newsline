@@ -10,6 +10,7 @@ interface IPostContext {
     url?: string
     title?: string
     id?: string
+    subreddit?: string
 }
 
 export const postContext = React.createContext<IPostContext[]>([])

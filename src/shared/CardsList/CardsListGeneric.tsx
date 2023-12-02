@@ -18,6 +18,7 @@ export function CardsListGeneric() {
             text: <Card key={post.id}
                         id={post.id}
                         postId={post.id}
+                        subreddit={post.subreddit}
                         author={post.author}
                         created={post.created}
                         icon_img={post.icon_img}

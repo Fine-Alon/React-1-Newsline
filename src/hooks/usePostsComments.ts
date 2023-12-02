@@ -2,25 +2,21 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {useToken} from "./useToken";
 
-export const usePostsComments = (postId: string) => {
+export const usePostsComments = (postId:string, subreddit:string) => {
     const [data, setData] = useState([])
     const token = useToken()
 
     useEffect(() => {
-        if (!token || token.length <= 0 || token === undefined) return
-        axios.get(`https://oauth.reddit.com/comments/${postId}.json`, {
-            headers: {Authorization: `Bearer ${token}`},
-        })
-            .then((res) => {
-                setData(res.data)
+        if (!token || token.length <= 0) return
+        axios.get(`https://reddit.com/r/${subreddit}comments/${postId}`)
+            .then((res: any) => {
+                console.log(res)
             })
             .catch((error) => {
                 console.log("Error fetching comments:", error)
             })
 
-    }, [postId, token]);
+    }, [token]);
 
-    console.log(data)
-    console.log("res")
     return data
 }
