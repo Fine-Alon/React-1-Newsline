@@ -7,14 +7,13 @@ import {usePostsComments} from "../../hooks/usePostsComments";
 interface IPostProps {
     onClose?: () => void;
     handelMenuClick?: (postId: string) => void;
-    postId?: string | undefined
+    postId?: string
     subreddit?: string | undefined
     id?: string;
 }
 
 export const Post = ({onClose, subreddit, id, handelMenuClick, postId}: IPostProps) => {
     const ref = useRef<HTMLDivElement>(null);
-    if (!postId || !subreddit) return null
 
     useEffect(() => {
         const handelClick = (event: MouseEvent) => {
@@ -47,7 +46,7 @@ export const Post = ({onClose, subreddit, id, handelMenuClick, postId}: IPostPro
 
 
 interface ICommentListId {
-    postId: string
+    postId?: string
 }
 
 export function CommentList({postId}: ICommentListId) {
