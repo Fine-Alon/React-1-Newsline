@@ -2,7 +2,6 @@ import React, {useEffect, useRef} from 'react';
 import styles from './post.css';
 import {createPortal} from 'react-dom';
 import {PostContent} from './PostContent';
-import {CommentsArea} from '../CommentsArea';
 import {usePostsComments} from "../../hooks/usePostsComments";
 
 interface IPostProps {
@@ -16,7 +15,6 @@ interface IPostProps {
 export const Post = ({onClose, subreddit, id, handelMenuClick, postId}: IPostProps) => {
     const ref = useRef<HTMLDivElement>(null);
     if (!postId || !subreddit) return null
-    const comments = usePostsComments(postId, subreddit)
 
     useEffect(() => {
         const handelClick = (event: MouseEvent) => {
@@ -40,8 +38,26 @@ export const Post = ({onClose, subreddit, id, handelMenuClick, postId}: IPostPro
     return createPortal(
         <div className={styles.modal} ref={ref}>
             <PostContent/>
-            <CommentsArea id={id} postId={postId} handelMenuClick={handelMenuClick}/>
+            {/*<CommentsArea id={id} postId={postId} handelMenuClick={handelMenuClick}/>*/}
+            <CommentList postId={id}/>
         </div>,
         node
     );
 };
+
+
+interface ICommentListId {
+    postId: string
+}
+
+export function CommentList({postId}: ICommentListId) {
+    const [data] = usePostsComments(postId)
+
+    if (!data) return null
+
+    return (
+        <div>
+            API Reddit suspect be here
+        </div>
+    )
+}
