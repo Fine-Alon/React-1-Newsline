@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styles from './post.css';
 import {createPortal} from 'react-dom';
 import {PostContent} from './PostContent';
@@ -50,13 +50,18 @@ interface ICommentListId {
 }
 
 export function CommentList({postId}: ICommentListId) {
-    const [data] = usePostsComments(postId)
-
+    const [commentsData, setCommentsData] = useState([])
+    const data = usePostsComments(postId)
+    useEffect(() => {
+        console.log(data)
+        setCommentsData(data);
+    }, [data]); // Only re-run when data changes
     if (!data) return null
 
     return (
         <div>
             API Reddit suspect be here
+            {commentsData && commentsData}
         </div>
     )
 }

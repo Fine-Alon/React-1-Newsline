@@ -1,10 +1,11 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import {useToken} from "./useToken";
+import {tokenContext} from "../shared/context/tokenContext";
 
 export const usePostData = () => {
     const [posts, setPosts] = useState([])
-    const token = useToken()
+    const token = useContext(tokenContext)
 
     useEffect(() => {
         if (token && token.length > 0 || token !== undefined) {
