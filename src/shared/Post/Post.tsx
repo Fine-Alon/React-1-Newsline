@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import styles from './post.css';
 import {createPortal} from 'react-dom';
 import {PostContent} from './PostContent';
-import {usePostsComments} from "../../hooks/usePostsComments";
+import {Comment, usePostsCommentsTwo} from "../../hooks/usePostsCommentsTwo";
 
 interface IPostProps {
     onClose?: () => void;
@@ -50,8 +50,8 @@ interface ICommentListId {
 }
 
 export function CommentList({postId}: ICommentListId) {
-    const [commentsData, setCommentsData] = useState([])
-    const data = usePostsComments(postId)
+    const [commentsData, setCommentsData] = useState<Comment[]>([])
+    const data = usePostsCommentsTwo(postId)
     useEffect(() => {
         console.log(data)
         setCommentsData(data);
@@ -61,7 +61,6 @@ export function CommentList({postId}: ICommentListId) {
     return (
         <div>
             API Reddit suspect be here
-            {commentsData && commentsData}
         </div>
     )
 }
