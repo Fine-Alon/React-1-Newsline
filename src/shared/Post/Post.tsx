@@ -53,7 +53,7 @@ export function CommentList({postId}: ICommentListId) {
     const [commentsData, setCommentsData] = useState<Comment[]>([])
     const data = usePostsCommentsTwo(postId)
     useEffect(() => {
-        console.log(data)
+        console.log('<<Final arr in Post>> :',data)
         setCommentsData(data);
     }, [data]); // Only re-run when data changes
     if (!data) return null
