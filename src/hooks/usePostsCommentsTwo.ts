@@ -60,7 +60,7 @@ const shallowComments = (comments: any[]): Comment[] => {
             if (commentData.replies && commentData.replies.data.children.length > 0) {
                 // Recursively process nested comments
                 // @ts-ignore
-                const nestedComments = shallowComments(commentData.replies.data.children);
+                const nestedComments:Comment[] = shallowComments(commentData.replies.data.children);
                 // console.log('nestedComments',nestedComments)
                 // @ts-ignore
                 data.replies = nestedComments;

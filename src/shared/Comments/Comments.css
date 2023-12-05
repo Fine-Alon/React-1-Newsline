@@ -27,6 +27,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    margin-bottom: 5px;
 }
 
 .user_info span {
@@ -51,4 +52,9 @@
 
 .timing {
     color: var(--grey99);
+}
+
+.comment_text{
+    margin-bottom: 8px;
+    margin-left: 10px;
 }

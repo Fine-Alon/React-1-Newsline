@@ -1,21 +1,28 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {ReactChildren, useContext, useEffect, useRef, useState} from 'react';
 import styles from './Comments.css';
 import {ReportSvg, ShareSvg} from "../icons";
 import {Icon} from "../Icon";
 import {CommentForm} from "../CommentsArea/CommentForm";
 import {useToken} from "../../hooks/useToken";
 import axios from "axios";
+import {userContext} from "../context/userContext";
 
 interface ICommentProps {
-    comments?: Object[]
+    innerComments?: Object[]
     postId?: string
     id?: string
+    name?: string
+    icon?: string
+    commentBody?: string
 }
 
-export const Comments: React.FC<ICommentProps> = ({id, postId}) => {
+export const Comments: React.FC<ICommentProps> = (props) => {
+    const {
+        id, commentBody, innerComments,
+        name, postId, icon
+    } = props
     const [openCommentDesk, setOpenCommentDesk] = useState(false)
     const refTextarea = useRef<HTMLTextAreaElement>(null)
-
 
     const handleClick = () => {
         setOpenCommentDesk(!openCommentDesk)
@@ -26,14 +33,14 @@ export const Comments: React.FC<ICommentProps> = ({id, postId}) => {
         <div className={styles.comments_block}>
             <div className={styles.user_info}>
                 <a href={'#'} className={styles.user_link}>
-                    <Icon name={'AnonSvg'} height={20} width={20}/>
-                    <span>name</span>
+                    {icon ? icon : <Icon name={'AnonSvg'} height={20} width={20}/>}
+                    <span>{name ? name : 'name'}</span>
                 </a>
                 <span className={styles.timing}>Timing</span>
                 <span className={styles.community}>Community</span>
             </div>
             <div className={styles.comment_text}>
-                {
+                {commentBody ? commentBody :
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aut consequatur dolor doloribus
                         ea,
                         fuga id laudantium pariatur rerum voluptas. Ab consectetur delectus dignissimos doloremque
@@ -53,6 +60,13 @@ export const Comments: React.FC<ICommentProps> = ({id, postId}) => {
                 </button>
             </div>
         </div>
-        {openCommentDesk ? <CommentForm  refTextarea={refTextarea}/> : null}
+        {innerComments?.map((topLevelComments: any, index) => (
+            <div style={{paddingLeft: '60px'}}>
+                <Comments id={id} commentBody={topLevelComments.body}
+                          postId={postId} name={topLevelComments.author}
+                          innerComments={topLevelComments.replies}/>
+            </div>
+        ))}
+        {openCommentDesk ? <CommentForm refTextarea={refTextarea}/> : null}
     </>
 }

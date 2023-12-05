@@ -18,7 +18,7 @@ export const CommentsArea: React.FC<ICommentsArea> = ({postId, id, handelMenuCli
     const [commentsData, setCommentsData] = useState<Comment[]>([])
     const data = usePostsCommentsTwo(postId)
     useEffect(() => {
-        console.log('<<Final arr in CommentsArea>> ',data)
+        console.log('<<Final arr in CommentsArea>> ', data)
         setCommentsData(data);
     }, [data]); // Only re-run when data changes
     if (!data) return null
@@ -39,8 +39,13 @@ export const CommentsArea: React.FC<ICommentsArea> = ({postId, id, handelMenuCli
                 onClick: () => item.onClick!(postId as string)
             }))}/>}
         </div>
-        <CommentForm  id={id} postId={postId} refTextarea={refTextarea}/>
-        <Comments id={id} postId={postId}/>
+        <CommentForm id={id} postId={postId} refTextarea={refTextarea}/>
+        {commentsData.map((topLevelComments, index) => (
+
+            <Comments id={id} commentBody={topLevelComments.body}
+                      postId={postId} name={topLevelComments.author}
+                      innerComments={topLevelComments.replies}/>
+        ))}
     </>
 }
 
