@@ -5,8 +5,7 @@ import {GenericList} from "../GenericList";
 import {CommentBtn, Hide, Report, Save, Share} from "../CardsList/Card/Menu/MenuLinks";
 import {generateId} from "../../utils/js/generateRandomIndex";
 import {CommentForm} from "./CommentForm";
-import {useToken} from "../../hooks/useToken";
-import axios from "axios";
+import {Comment, usePostsCommentsTwo} from "../../hooks/usePostsCommentsTwo";
 
 interface ICommentsArea {
     postId?: string
@@ -16,9 +15,17 @@ interface ICommentsArea {
 }
 
 export const CommentsArea: React.FC<ICommentsArea> = ({postId, id, handelMenuClick}) => {
+    const [commentsData, setCommentsData] = useState<Comment[]>([])
+    const data = usePostsCommentsTwo(postId)
+    useEffect(() => {
+        console.log('<<Final arr in CommentsArea>> ',data)
+        setCommentsData(data);
+    }, [data]); // Only re-run when data changes
+    if (!data) return null
+
     const refTextarea = useRef<HTMLTextAreaElement>(null);
     const menuListDesk = [
-        {text: <CommentBtn/>, className: styles.mobileHidden},
+        {text: <CommentBtn number={commentsData.length}/>, className: styles.mobileHidden},
         {text: <Share/>, className: styles.mobileHidden},
         {text: <Hide/>, onClick: handelMenuClick},
         {text: <Save/>, className: styles.mobileHidden},

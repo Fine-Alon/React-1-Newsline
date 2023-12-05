@@ -3,6 +3,7 @@ import styles from './post.css';
 import {createPortal} from 'react-dom';
 import {PostContent} from './PostContent';
 import {Comment, usePostsCommentsTwo} from "../../hooks/usePostsCommentsTwo";
+import {CommentsArea} from "../CommentsArea";
 
 interface IPostProps {
     onClose?: () => void;
@@ -37,8 +38,8 @@ export const Post = ({onClose, subreddit, id, handelMenuClick, postId}: IPostPro
     return createPortal(
         <div className={styles.modal} ref={ref}>
             <PostContent/>
-            {/*<CommentsArea id={id} postId={postId} handelMenuClick={handelMenuClick}/>*/}
-            <CommentList postId={id}/>
+            {/*<CommentList postId={id}/>*/}
+            <CommentsArea id={id} postId={postId} handelMenuClick={handelMenuClick}/>
         </div>,
         node
     );

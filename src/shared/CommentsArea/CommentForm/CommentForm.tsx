@@ -1,9 +1,7 @@
-import React, {ChangeEvent, FormEvent, forwardRef, useContext, useEffect, useState} from 'react';
+import React, {ChangeEvent, FormEvent, forwardRef, useContext, useEffect} from 'react';
 import styles from './commentForm.css';
 import {commentContext} from "../../context/commentContext";
-import {useToken} from "../../../hooks/useToken";
-import axios from "axios";
-
+import {userContext} from "../../context/userContext";
 interface ICommentFormProps {
     refTextarea: React.RefObject<HTMLTextAreaElement>
     id?: string
@@ -14,6 +12,7 @@ interface ICommentFormProps {
 export const CommentForm = forwardRef<HTMLTextAreaElement, ICommentFormProps>(
     ({refTextarea, id, postId}, ref) => {
         const {value, onChange} = useContext(commentContext)
+        const {name} = useContext(userContext)
 
         const handleSubmit = (event: FormEvent) => {
             event.preventDefault()
@@ -28,7 +27,8 @@ export const CommentForm = forwardRef<HTMLTextAreaElement, ICommentFormProps>(
         }, [refTextarea]);
         return <>
             <form className={styles.form} onSubmit={handleSubmit}>
-                <textarea ref={refTextarea} className={styles.input} onChange={handleChange} value={value}/>
+                <textarea placeholder={`${name?name:'Whoever u are'}, leave your comment`}
+                          ref={refTextarea} className={styles.input} onChange={handleChange} value={value}/>
                 <div className={styles.form_bottom}>
                     <span className={styles.controls}>here will be some CONTROLS</span>
                     <button type={"submit"} className={styles.btnSubmit}>comment</button>
