@@ -41,11 +41,7 @@ export const Comments: React.FC<ICommentProps> = (props) => {
             </div>
             <div className={styles.comment_text}>
                 {commentBody ? commentBody :
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aut consequatur dolor doloribus
-                        ea,
-                        fuga id laudantium pariatur rerum voluptas. Ab consectetur delectus dignissimos doloremque
-                        dolores
-                        eos ex excepturi exercitationem!</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aut consequatur dolor doloribus !</p>
                 }
             </div>
             <div className={styles.controls}>
@@ -62,11 +58,11 @@ export const Comments: React.FC<ICommentProps> = (props) => {
         </div>
         {innerComments?.map((topLevelComments: any, index) => (
             <div style={{paddingLeft: '60px'}}>
-                <Comments id={id} commentBody={topLevelComments.body}
+                <Comments id={topLevelComments.author} commentBody={topLevelComments.body}
                           postId={postId} name={topLevelComments.author}
                           innerComments={topLevelComments.replies}/>
             </div>
         ))}
-        {openCommentDesk ? <CommentForm refTextarea={refTextarea}/> : null}
+        {openCommentDesk ? <CommentForm name={name} id={id} refTextarea={refTextarea}/> : null}
     </>
 }

@@ -5,14 +5,14 @@ import {userContext} from "../../context/userContext";
 interface ICommentFormProps {
     refTextarea: React.RefObject<HTMLTextAreaElement>
     id?: string
+    name?: string
     postId?: string
     comments?: Object[]
 }
 
 export const CommentForm = forwardRef<HTMLTextAreaElement, ICommentFormProps>(
-    ({refTextarea, id, postId}, ref) => {
+    ({refTextarea, name, id, postId}, ref) => {
         const {value, onChange} = useContext(commentContext)
-        const {name} = useContext(userContext)
 
         const handleSubmit = (event: FormEvent) => {
             event.preventDefault()

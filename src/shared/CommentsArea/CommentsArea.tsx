@@ -42,7 +42,7 @@ export const CommentsArea: React.FC<ICommentsArea> = ({postId, id, handelMenuCli
         <CommentForm id={id} postId={postId} refTextarea={refTextarea}/>
         {commentsData.map((topLevelComments, index) => (
 
-            <Comments id={id} commentBody={topLevelComments.body}
+            <Comments id={id}  commentBody={topLevelComments.body}
                       postId={postId} name={topLevelComments.author}
                       innerComments={topLevelComments.replies}/>
         ))}
