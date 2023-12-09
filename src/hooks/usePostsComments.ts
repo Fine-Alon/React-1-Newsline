@@ -1,36 +1,32 @@
-import {useContext, useEffect, useState} from "react";
-import axios from "axios";
-import {tokenContext} from "../shared/context/tokenContext";
+import { useEffect, useState} from "react";
+import axios, {AxiosResponse} from "axios";
+import {useSelector} from "react-redux";
+import {RootState} from "../store";
 
 type IUseCommentsData = string | undefined
 
-export interface ICommentData {
-    author?: string
-    comment?: string
-    body?: string
-    id?: string
-    replies?: IComment
+export interface Comment {
+    id: string;
+    author: string;
+    body: string;
+    replies?: Comment[];
 }
 
-interface IComment {
-    data: ICommentData[]
-    kind: string
+interface CommentWithKind extends Comment {
+    kind: string;
 }
 
 export const usePostsComments = (postId: IUseCommentsData) => {
-    const [data, setData] = useState<ICommentData[]>([])
-    const token = useContext(tokenContext)
+    const [data, setData] = useState<Comment[]>([])
+    const token = useSelector<RootState, string | undefined>(state => state.token)
 
     useEffect(() => {
         if (token && token.length > 0 && token !== "undefined") {
             axios.get(`https://oauth.reddit.com/comments/${postId}?sr_detail=true`, {
                 headers: {Authorization: `Bearer ${token}`},
             })
-                .then((res: any) => {
-                    const comment = categorizeComments(res.data[1].data.children)
-                    console.log(comment)
-
-                    // @ts-ignore
+                .then((res: AxiosResponse<any>) => {
+                    const comment = shallowComments(res.data[1].data.children)
                     setData(comment)
                 })
                 .catch((error) => {
@@ -42,49 +38,34 @@ export const usePostsComments = (postId: IUseCommentsData) => {
 
     return data
 }
-const categorizeComments = (topLevelComments: IComment[]): ICommentData[][] => {
-    const categorizedComments: ICommentData[][] = [];
-    categorizeRecursive(topLevelComments, categorizedComments, 0);
-    return categorizedComments;
-}
+const shallowComments = (comments: any[]): Comment[] => {
+    let main: Comment[] = [];
 
-// [{},{},{},{},{},{},{},{},{},{},{},{},{},{},]    -->  topLevelComments
-// {kind: 't1',data:{} } --> comment
-// {id,body,author, replies={} }
-// replies = {kind:"Listing", {data}}
-// replies = {{data}}
-const categorizeRecursive = (comments: IComment[], result: ICommentData[][], level: number) => {
-    const commentArray: ICommentData[] = [];
+    for (const comment of comments) {
+        const commentData = comment.data as CommentWithKind;
 
-    comments.forEach((comment: IComment) => {
-        // @ts-ignore
+        const data = {
+            id: commentData.id,
+            body: commentData.body,
+            author: commentData.author,
+            replies: []
+        };
+
+        // Check if the comment type is 't1'
         if (comment.kind === 't1') {
-            const data = {
-                // @ts-ignore
-                id: comment.data.id,
-                // @ts-ignore
-                body: comment.data.body,
-                // @ts-ignore
-                author: comment.data.author,
-                // @ts-ignore
-                replies: comment.data.replies && comment.data.replies.data.children
-                    // @ts-ignore
-                    ? categorizeRecursive(comment.data.replies.data.children, result, level + 1)
-                    : undefined,
-            };
+            main.push(data);
 
-            // You should push the comment data into commentArray
+            // Check if there are replies and they have children
             // @ts-ignore
-            commentArray.push(data);
+            if (commentData.replies && commentData.replies.data.children.length > 0) {
+                // Recursively process nested comments
+                // @ts-ignore
+                const nestedComments: Comment[] = shallowComments(commentData.replies.data.children);
+                // console.log('nestedComments',nestedComments)
+                // @ts-ignore
+                data.replies = nestedComments;
+            }
         }
-    });
-
-    // Ensure the array for the current level exists
-    result[level] = result[level] || [];
-    // @ts-ignore
-    result[level].push(...commentArray);
-
-    // @ts-ignore
-    return commentArray;
-};
-
+    }
+    return main;
+}

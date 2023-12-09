@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import styles from './post.css';
 import {createPortal} from 'react-dom';
 import {PostContent} from './PostContent';
-import {Comment, usePostsCommentsTwo} from "../../hooks/usePostsCommentsTwo";
+import {Comment, usePostsComments} from "../../hooks/usePostsComments";
 import {CommentsArea} from "../CommentsArea";
 
 interface IPostProps {
@@ -52,7 +52,7 @@ interface ICommentListId {
 
 export function CommentList({postId}: ICommentListId) {
     const [commentsData, setCommentsData] = useState<Comment[]>([])
-    const data = usePostsCommentsTwo(postId)
+    const data = usePostsComments(postId)
     useEffect(() => {
         console.log('<<Final arr in Post>> :',data)
         setCommentsData(data);

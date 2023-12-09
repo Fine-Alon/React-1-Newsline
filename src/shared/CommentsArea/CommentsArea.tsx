@@ -3,10 +3,10 @@ import styles from './commentsArea.css';
 import {Comments} from "../Comments";
 import {GenericList} from "../GenericList";
 import {CommentBtn, Hide, Report, Save, Share} from "../CardsList/Card/Menu/MenuLinks";
-import {generateId} from "../../utils/js/generateRandomIndex";
-import {CommentForm} from "./CommentForm";
-import {Comment, usePostsCommentsTwo} from "../../hooks/usePostsCommentsTwo";
+import {generateId, generateRandomString} from "../../utils/js/generateRandomIndex";
+import {Comment, usePostsComments} from "../../hooks/usePostsComments";
 import {CommentFormContainer} from "./CommentFormContainer/CommentFormContainer";
+import {generateKey} from "crypto";
 
 interface ICommentsArea {
     postId?: string
@@ -17,9 +17,8 @@ interface ICommentsArea {
 
 export const CommentsArea: React.FC<ICommentsArea> = ({postId, id, handelMenuClick}) => {
     const [commentsData, setCommentsData] = useState<Comment[]>([])
-    const data = usePostsCommentsTwo(postId)
+    const data = usePostsComments(postId)
     useEffect(() => {
-        console.log('<<Final arr in CommentsArea>> ', data)
         setCommentsData(data);
     }, [data]); // Only re-run when data changes
     if (!data) return null
@@ -41,12 +40,13 @@ export const CommentsArea: React.FC<ICommentsArea> = ({postId, id, handelMenuCli
             }))}/>}
         </div>
         <CommentFormContainer id={id} postId={postId} refTextarea={refTextarea}/>
-        {commentsData.map((topLevelComments, index) => (
-
-            <Comments id={id}  commentBody={topLevelComments.body}
-                      postId={postId} name={topLevelComments.author}
-                      innerComments={topLevelComments.replies}/>
-        ))}
+        {commentsData.map((topLevelComments, index) => {
+            const uniqueKey = generateRandomString()
+            return (
+                <Comments key={uniqueKey} id={id} commentBody={topLevelComments.body}
+                          postId={postId} name={topLevelComments.author}
+                          innerComments={topLevelComments.replies}/>)
+        })}
     </>
 }
 

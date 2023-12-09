@@ -1,13 +1,14 @@
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
-import {useToken} from "./useToken";
-import {tokenContext} from "../shared/context/tokenContext";
+import {useSelector} from "react-redux";
+import {RootState} from "../store";
 
 export const usePostData = () => {
     const [posts, setPosts] = useState([])
-    const token = useContext(tokenContext)
+    const token = useSelector<RootState, string | undefined>(state => state.token)
 
     useEffect(() => {
+
         if (token && token.length > 0 || token !== undefined) {
 
             axios

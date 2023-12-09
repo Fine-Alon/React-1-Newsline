@@ -7,6 +7,7 @@ import {useToken} from "../../hooks/useToken";
 import axios from "axios";
 import {userContext} from "../context/userContext";
 import {CommentFormContainer} from "../CommentsArea/CommentFormContainer/CommentFormContainer";
+import {generateRandomString} from "../../utils/js/generateRandomIndex";
 
 interface ICommentProps {
     innerComments?: Object[]
@@ -42,7 +43,8 @@ export const Comments: React.FC<ICommentProps> = (props) => {
             </div>
             <div className={styles.comment_text}>
                 {commentBody ? commentBody :
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aut consequatur dolor doloribus !</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aut consequatur dolor doloribus
+                        !</p>
                 }
             </div>
             <div className={styles.controls}>
@@ -57,13 +59,16 @@ export const Comments: React.FC<ICommentProps> = (props) => {
                 </button>
             </div>
         </div>
-        {innerComments?.map((topLevelComments: any, index) => (
-            <div style={{paddingLeft: '60px'}}>
-                <Comments id={topLevelComments.author} commentBody={topLevelComments.body}
-                          postId={postId} name={topLevelComments.author}
-                          innerComments={topLevelComments.replies}/>
-            </div>
-        ))}
+        {innerComments?.map((topLevelComments: any, index) => {
+            const uniqueKey = generateRandomString()
+            return (
+                <div key={uniqueKey + index} style={{paddingLeft: '60px'}}>
+                    <Comments key={uniqueKey} id={topLevelComments.author} commentBody={topLevelComments.body}
+                              postId={postId} name={topLevelComments.author}
+                              innerComments={topLevelComments.replies}/>
+                </div>
+            )
+        })}
         {openCommentDesk ? <CommentFormContainer name={name} id={id} refTextarea={refTextarea}/> : null}
     </>
 }
