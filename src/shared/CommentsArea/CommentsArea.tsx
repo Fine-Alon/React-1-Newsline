@@ -6,6 +6,7 @@ import {CommentBtn, Hide, Report, Save, Share} from "../CardsList/Card/Menu/Menu
 import {generateId} from "../../utils/js/generateRandomIndex";
 import {CommentForm} from "./CommentForm";
 import {Comment, usePostsCommentsTwo} from "../../hooks/usePostsCommentsTwo";
+import {CommentFormContainer} from "./CommentFormContainer/CommentFormContainer";
 
 interface ICommentsArea {
     postId?: string
@@ -39,7 +40,7 @@ export const CommentsArea: React.FC<ICommentsArea> = ({postId, id, handelMenuCli
                 onClick: () => item.onClick!(postId as string)
             }))}/>}
         </div>
-        <CommentForm id={id} postId={postId} refTextarea={refTextarea}/>
+        <CommentFormContainer id={id} postId={postId} refTextarea={refTextarea}/>
         {commentsData.map((topLevelComments, index) => (
 
             <Comments id={id}  commentBody={topLevelComments.body}

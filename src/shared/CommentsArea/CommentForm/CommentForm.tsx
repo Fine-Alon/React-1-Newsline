@@ -1,25 +1,22 @@
-import React, {ChangeEvent, FormEvent, forwardRef, useContext, useEffect} from 'react';
+import React, {ChangeEvent, FormEvent, forwardRef, useEffect} from 'react';
 import styles from './commentForm.css';
-import {commentContext} from "../../context/commentContext";
-import {userContext} from "../../context/userContext";
+
 interface ICommentFormProps {
     refTextarea: React.RefObject<HTMLTextAreaElement>
     id?: string
     name?: string
     postId?: string
     comments?: Object[]
+    handleChange: (event: ChangeEvent<HTMLTextAreaElement>) => void
+    value: string
+    handleSubmit: (event: FormEvent) => void
 }
 
 export const CommentForm = forwardRef<HTMLTextAreaElement, ICommentFormProps>(
-    ({refTextarea, name, id, postId}, ref) => {
-        const {value, onChange} = useContext(commentContext)
-
-        const handleSubmit = (event: FormEvent) => {
-            event.preventDefault()
-        }
-        const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-            onChange(event.target.value)
-        }
+    ({
+         refTextarea, value, handleChange,
+         name, id, handleSubmit, postId
+     }, ref) => {
 
         // Use useEffect to focus the textarea when the component mounts
         useEffect(() => {
@@ -27,7 +24,7 @@ export const CommentForm = forwardRef<HTMLTextAreaElement, ICommentFormProps>(
         }, [refTextarea]);
         return <>
             <form className={styles.form} onSubmit={handleSubmit}>
-                <textarea placeholder={`${name?name:'Whoever u are'}, leave your comment`}
+                <textarea placeholder={`${name ? name : 'Whoever u are'}, leave your comment`}
                           ref={refTextarea} className={styles.input} onChange={handleChange} value={value}/>
                 <div className={styles.form_bottom}>
                     <span className={styles.controls}>here will be some CONTROLS</span>

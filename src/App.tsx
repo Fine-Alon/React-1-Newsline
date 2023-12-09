@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React from "react";
 import './main.global.css'
 import {hot} from "react-hot-loader/root";
 import {Layout} from "./shared/Layout";
@@ -9,21 +9,23 @@ import {useToken} from "./hooks/useToken";
 import {tokenContext} from "./shared/context/tokenContext";
 import {UserContextProvider} from "./shared/context/userContext";
 import {PostContextProvider} from "./shared/context/postContext";
-import {commentContext} from "./shared/context/commentContext";
+import {createStore,} from "redux";
+import {Provider} from "react-redux";
+import {composeWithDevTools} from 'redux-devtools-extension';
+import {rootReduser} from "./store";
+
+
+const store = createStore(rootReduser, composeWithDevTools())
 
 function AppComponent() {
     const [token] = useToken()
-    const [commentValue, setCommentValue] = useState('')
-    /*
-    const handleAddItem = () => {
-        setList(list.concat(generateId({text: generateRandomString(), As: 'li' as const})))
-    }*/
-    const CommentContextProvider = commentContext.Provider
+
+    const TokenContextProvider = tokenContext.Provider
     return (
-        <tokenContext.Provider value={token}>
-            <UserContextProvider>
-                <PostContextProvider>
-                    <CommentContextProvider value={{value: commentValue, onChange: setCommentValue}}>
+        <Provider store={store}>
+            <TokenContextProvider value={token}>
+                <UserContextProvider>
+                    <PostContextProvider>
                         <Layout>
                             <Header/>
                             <Content>
@@ -33,10 +35,11 @@ function AppComponent() {
                                 <Text size={20} mobileSize={16}> Label3</Text>
                             </Content>
                         </Layout>
-                    </CommentContextProvider>
-                </PostContextProvider>
-            </UserContextProvider>
-        </tokenContext.Provider>
+                    </PostContextProvider>
+                </UserContextProvider>
+            </TokenContextProvider>
+        </Provider>
     )
 }
+
 export const App = hot(() => <AppComponent/>)

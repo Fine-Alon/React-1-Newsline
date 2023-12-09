@@ -6,6 +6,7 @@ import {CommentForm} from "../CommentsArea/CommentForm";
 import {useToken} from "../../hooks/useToken";
 import axios from "axios";
 import {userContext} from "../context/userContext";
+import {CommentFormContainer} from "../CommentsArea/CommentFormContainer/CommentFormContainer";
 
 interface ICommentProps {
     innerComments?: Object[]
@@ -63,6 +64,6 @@ export const Comments: React.FC<ICommentProps> = (props) => {
                           innerComments={topLevelComments.replies}/>
             </div>
         ))}
-        {openCommentDesk ? <CommentForm name={name} id={id} refTextarea={refTextarea}/> : null}
+        {openCommentDesk ? <CommentFormContainer name={name} id={id} refTextarea={refTextarea}/> : null}
     </>
 }
