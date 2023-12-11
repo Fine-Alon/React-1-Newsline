@@ -10,7 +10,7 @@ export const useToken = () => {
         if (window.__token__) {
             dispatch(setTokenCreator(window.__token__))
         }
-    }, [])
+    }, [token])
 
     return [token]
 }

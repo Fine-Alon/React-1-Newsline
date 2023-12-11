@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import './main.global.css'
 import {hot} from "react-hot-loader/root";
 import {Layout} from "./shared/Layout";
@@ -8,16 +8,35 @@ import {EColors, Text} from "./shared/Text";
 import {useToken} from "./hooks/useToken";
 import {UserContextProvider} from "./shared/context/userContext";
 import {PostContextProvider} from "./shared/context/postContext";
-import {createStore,} from "redux";
+import {Action, applyMiddleware, createStore,} from "redux";
 import {Provider} from "react-redux";
 import {composeWithDevTools} from 'redux-devtools-extension';
-import {rootReduser} from "./store";
+import {rootReduser, RootState, setTokenCreator} from "./store";
+import thunk, {ThunkAction} from "redux-thunk";
 
-const store = createStore(rootReduser, composeWithDevTools())
+const timeout = (ms: number): ThunkAction<void, RootState, unknown, Action<string>> =>
+    (dispatch, _getState) => {
+        dispatch({type: 'START'})
+        setTimeout(() => {
+            dispatch({type: 'FINISH'})
+        }, ms)
+    }
+
+const store = createStore(rootReduser,
+    composeWithDevTools(applyMiddleware(thunk)))
 
 function AppComponent() {
 
-    const [token] = useToken()
+    // const [token] = useToken()
+    useEffect(() => {
+        const token = localStorage.getItem('token') || window.__token__
+        store.dispatch(setTokenCreator(token))
+        // @ts-ignore
+        store.dispatch(timeout(3000))
+        if (token) {
+            localStorage.setItem('token', token)
+        }
+    }, []);
 
     return (
         <UserContextProvider>

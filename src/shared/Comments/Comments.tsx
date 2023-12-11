@@ -1,11 +1,7 @@
-import React, {ReactChildren, useContext, useEffect, useRef, useState} from 'react';
+import React, { useRef, useState} from 'react';
 import styles from './Comments.css';
 import {ReportSvg, ShareSvg} from "../icons";
 import {Icon} from "../Icon";
-import {CommentForm} from "../CommentsArea/CommentForm";
-import {useToken} from "../../hooks/useToken";
-import axios from "axios";
-import {userContext} from "../context/userContext";
 import {CommentFormContainer} from "../CommentsArea/CommentFormContainer/CommentFormContainer";
 import {generateRandomString} from "../../utils/js/generateRandomIndex";
 
