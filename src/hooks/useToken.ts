@@ -1,6 +1,7 @@
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState, setTokenCreator} from "../store";
+import {RootState} from "../store/reduser";
+import {setTokenAC} from "../store/me/actions";
 
 export const useToken = () => {
     const dispatch = useDispatch()
@@ -8,7 +9,7 @@ export const useToken = () => {
 
     useEffect(() => {
         if (window.__token__) {
-            dispatch(setTokenCreator(window.__token__))
+            dispatch(setTokenAC(window.__token__))
         }
     }, [token])
 

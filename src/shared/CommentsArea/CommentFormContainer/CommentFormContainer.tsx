@@ -1,7 +1,8 @@
 import React, {ChangeEvent, FormEvent, forwardRef, useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {RootState, updateCommentCreator} from "../../../store";
+import {RootState} from "../../../store/reduser";
 import {CommentForm} from "../CommentForm/CommentForm";
+import {updateCommentAC} from "../../../store/me/actions";
 
 
 interface ICommentFormProps {
@@ -20,7 +21,7 @@ export const CommentFormContainer = forwardRef<HTMLTextAreaElement, ICommentForm
         const dispatch = useDispatch()
 
         const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-            dispatch(updateCommentCreator(event.target.value))
+            dispatch(updateCommentAC(event.target.value))
         }
 
         const handleSubmit = (event: FormEvent) => {
