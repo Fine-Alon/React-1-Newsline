@@ -86,3 +86,12 @@ export const meRequestAsync = (): ThunkAction<void, RootState, unknown, Action<s
                 dispatch(meRequestError(String(error)))
             })
     }
+// --------------------------    SAVE_TOKEN   ---------------------------------------//
+export const saveToken = (): ThunkAction<void, RootState, unknown, any> =>
+    (dispatch, getState) => {
+        const token = window.__token__
+        if (token) {
+            console.log('token from SAVE_TOKEN from actions')
+            dispatch<any>(setTokenAC(token))
+        }
+    }

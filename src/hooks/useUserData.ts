@@ -16,7 +16,7 @@ export const useUserData = () => {
 
     useEffect(() => {
         if (token !== "" && token !== "undefined") {
-            dispatch(meRequestAsync() as any)
+            dispatch<any>(meRequestAsync())
         }
     }, [token])
 

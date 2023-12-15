@@ -9,9 +9,10 @@ export const useToken = () => {
 
     useEffect(() => {
         if (window.__token__) {
+            console.log('token from useToken')
             dispatch(setTokenAC(window.__token__))
         }
-    }, [token])
+    }, [dispatch])
 
     return [token]
 }

@@ -1,6 +1,5 @@
 import {Reducer} from "redux";
 import {
-    IUserData,
     ME_REQUEST,
     ME_REQUEST_ERROR,
     ME_REQUEST_SUCCESS,
