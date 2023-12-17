@@ -6,7 +6,6 @@ import {CommentBtn, Hide, Report, Save, Share} from "../CardsList/Card/Menu/Menu
 import {generateId, generateRandomString} from "../../utils/js/generateRandomIndex";
 import {Comment, usePostsComments} from "../../hooks/usePostsComments";
 import {CommentFormContainer} from "./CommentFormContainer/CommentFormContainer";
-import {generateKey} from "crypto";
 
 interface ICommentsArea {
     postId?: string
@@ -23,7 +22,6 @@ export const CommentsArea: React.FC<ICommentsArea> = ({postId, id, handelMenuCli
     }, [data]); // Only re-run when data changes
     if (!data) return null
 
-    const refTextarea = useRef<HTMLTextAreaElement>(null);
     const menuListDesk = [
         {text: <CommentBtn number={commentsData.length}/>, className: styles.mobileHidden},
         {text: <Share/>, className: styles.mobileHidden},
@@ -39,7 +37,7 @@ export const CommentsArea: React.FC<ICommentsArea> = ({postId, id, handelMenuCli
                 onClick: () => item.onClick!(postId as string)
             }))}/>}
         </div>
-        <CommentFormContainer id={id} postId={postId} refTextarea={refTextarea}/>
+        <CommentFormContainer id={id} postId={postId} />
         {commentsData.map((topLevelComments, index) => {
             const uniqueKey = generateRandomString()
             return (

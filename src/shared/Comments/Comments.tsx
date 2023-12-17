@@ -1,8 +1,8 @@
-import React, { useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import styles from './Comments.css';
 import {ReportSvg, ShareSvg} from "../icons";
 import {Icon} from "../Icon";
-import {CommentFormContainer} from "../CommentsArea/CommentFormContainer/CommentFormContainer";
+import {CommentFormContainer} from "../CommentsArea/CommentFormContainer";
 import {generateRandomString} from "../../utils/js/generateRandomIndex";
 
 interface ICommentProps {
@@ -20,11 +20,11 @@ export const Comments: React.FC<ICommentProps> = (props) => {
         name, postId, icon
     } = props
     const [openCommentDesk, setOpenCommentDesk] = useState(false)
-    const refTextarea = useRef<HTMLTextAreaElement>(null)
+    // const refTextarea = useRef<HTMLTextAreaElement>(null)
 
     const handleClick = () => {
         setOpenCommentDesk(!openCommentDesk)
-        refTextarea.current?.focus()
+        // refTextarea.current?.focus()
     }
 
     return <>
@@ -38,9 +38,8 @@ export const Comments: React.FC<ICommentProps> = (props) => {
                 <span className={styles.community}>Community</span>
             </div>
             <div className={styles.comment_text}>
-                {commentBody ? commentBody :
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aut consequatur dolor doloribus
-                        !</p>
+                {commentBody ? commentBody
+                    : <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aut dolor doloribus !</p>
                 }
             </div>
             <div className={styles.controls}>
@@ -65,6 +64,6 @@ export const Comments: React.FC<ICommentProps> = (props) => {
                 </div>
             )
         })}
-        {openCommentDesk ? <CommentFormContainer name={name} id={id} refTextarea={refTextarea}/> : null}
+        {openCommentDesk ? <CommentFormContainer name={name} id={id}/> : null}
     </>
 }
