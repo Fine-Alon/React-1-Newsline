@@ -26,7 +26,7 @@ export const CommentFormContainer = ({name, id, postId}: ICommentFormProps) => {
     }
 
     return (
-        <CommentForm handleChange={handleChange} handleSubmitt={handleSubmit} value={value}/>
+        <CommentForm handleChange={handleChange} name={name} postId={postId} handleSubmitt={handleSubmit} value={value}/>
     )
 }
 
