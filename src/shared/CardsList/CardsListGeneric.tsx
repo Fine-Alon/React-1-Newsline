@@ -1,16 +1,25 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import styles from './cardslist.css';
 import {Card} from './Card';
 import {GenericList} from "../GenericList";
 import cardStyles from "./Card/card.css";
-import {postContext} from "../context/postContext";
+import {useSelector} from "react-redux";
+import {RootState} from "../../store/reduser";
+import {IPostContext} from "../../store/me/actions";
 
 const onDeletePost = (id: string) => {
     console.log(id)
 }
 
 export function CardsListGeneric() {
-    const postArr = useContext(postContext)
+    // const postArr = useContext(postContext)
+    const postArr = useSelector<RootState,IPostContext[]>(state => state.posts)
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        postArr.length ? setIsLoading(false) : setIsLoading(true)
+        console.log(postArr.length)
+    }, [postArr.length]);
 
     const cardArr = postArr.map(post => (
         {
@@ -32,6 +41,7 @@ export function CardsListGeneric() {
 
     return (
         <ul className={styles.cardsList}>
+            {isLoading && <div role={"alert"} style={{display: 'flex', justifyContent: 'center'}}>Loading...</div>}
             <GenericList list={cardArr}/>
         </ul>
     );

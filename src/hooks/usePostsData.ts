@@ -6,14 +6,14 @@ import {RootState} from "../store/reduser";
 export const usePostData = () => {
     const [posts, setPosts] = useState([])
     const token = useSelector<RootState, string | undefined>(state => state.token)
-
     useEffect(() => {
 
         if (token && token.length > 0 || token !== undefined) {
 
             axios
                 .get("https://oauth.reddit.com/best.json?sr_detail=true", {
-                    headers: {Authorization: `bearer ${token}`}
+                    headers: {Authorization: `bearer ${token}`},
+                    params: {limit: 10, count: 3}
                 })
                 .then((res) => {
                     // console.log(res.data.data.children[1].data.subreddit)

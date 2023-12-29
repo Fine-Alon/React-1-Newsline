@@ -5,7 +5,6 @@ import {Layout} from "./shared/Layout";
 import {Header} from "./shared/Header";
 import {Content} from "./shared/Content";
 import {EColors, Text} from "./shared/Text";
-import {PostContextProvider} from "./shared/context/postContext";
 import {applyMiddleware, createStore,} from "redux";
 import {Provider, useDispatch} from "react-redux";
 import {composeWithDevTools} from 'redux-devtools-extension';
@@ -25,7 +24,7 @@ function AppComponent() {
     }, [dispatch]);
 
     return (
-        <PostContextProvider>
+        <>
             <Layout>
                 <Header/>
                 <Content>
@@ -35,7 +34,7 @@ function AppComponent() {
                     <Text size={20} mobileSize={16}> Label3</Text>
                 </Content>
             </Layout>
-        </PostContextProvider>
+        </>
     )
 }
 
