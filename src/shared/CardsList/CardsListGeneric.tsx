@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './cardslist.css';
 import {Card} from './Card';
 import {GenericList} from "../GenericList";
@@ -6,6 +6,8 @@ import cardStyles from "./Card/card.css";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/reduser";
 import {IPostContext} from "../../store/me/actions";
+import {MeState} from "../../store/me/reduser";
+import {log} from "util";
 
 const onDeletePost = (id: string) => {
     console.log(id)
@@ -13,12 +15,12 @@ const onDeletePost = (id: string) => {
 
 export function CardsListGeneric() {
     // const postArr = useContext(postContext)
-    const postArr = useSelector<RootState,IPostContext[]>(state => state.posts)
-    const [isLoading, setIsLoading] = useState(true)
+    const postArr = useSelector<RootState, IPostContext[]>(state => state.posts)
+    const postArrError = useSelector<RootState, string>(state => state.postsError)
+    const [isPending, setIsPending] = useState(true)
 
     useEffect(() => {
-        postArr.length ? setIsLoading(false) : setIsLoading(true)
-        console.log(postArr.length)
+        postArr.length ? setIsPending(false) : setIsPending(true)
     }, [postArr.length]);
 
     const cardArr = postArr.map(post => (
@@ -41,7 +43,11 @@ export function CardsListGeneric() {
 
     return (
         <ul className={styles.cardsList}>
-            {isLoading && <div role={"alert"} style={{display: 'flex', justifyContent: 'center'}}>Loading...</div>}
+            {postArrError && <div role={"alert"} style={{display: 'flex', color: 'darkred', justifyContent: 'center'}}>
+                {postArrError}
+            </div>}
+            {!postArrError && isPending &&
+                <div role={"alert"} style={{display: 'flex', justifyContent: 'center'}}>Loading...</div>}
             <GenericList list={cardArr}/>
         </ul>
     );

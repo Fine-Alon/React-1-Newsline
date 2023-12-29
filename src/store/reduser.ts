@@ -6,7 +6,15 @@ import {
     ME_REQUEST_SUCCESS,
     MeRequestAC,
     MeRequestErrorAC,
-    MeRequestSuccessAC, SET_POSTS, SET_TOKEN, SetPostsAC, SetTokenAC, UPDATE_COMMENT, UpdateCommentAC
+    MeRequestSuccessAC,
+    SET_POSTS,
+    SET_POSTS_ERROR,
+    SET_TOKEN,
+    SetPostsAC,
+    SetPostsErrorAC,
+    SetTokenAC,
+    UPDATE_COMMENT,
+    UpdateCommentAC
 } from "./me/actions";
 import {meReducer, MeState} from "./me/reduser";
 
@@ -16,6 +24,7 @@ export type RootState = {
     token: string
     me: MeState
     posts: IPostContext[]
+    postsError: string
 }
 
 export const initialState: RootState = {
@@ -26,11 +35,12 @@ export const initialState: RootState = {
         error: '',
         data: {}
     },
-    posts: []
+    posts: [],
+    postsError: '',
 }
 
 export type MyAction = MeRequestAC | MeRequestErrorAC
-    | MeRequestSuccessAC | UpdateCommentAC | SetTokenAC | SetPostsAC
+    | MeRequestSuccessAC | UpdateCommentAC | SetTokenAC | SetPostsAC | SetPostsErrorAC
 
 export const rootReduser: Reducer<RootState, MyAction> = (state = initialState, action) => {
     switch (action.type) {
@@ -43,6 +53,11 @@ export const rootReduser: Reducer<RootState, MyAction> = (state = initialState, 
             return {
                 ...state,
                 posts: action.payload
+            }
+        case SET_POSTS_ERROR:
+            return {
+                ...state,
+                postsError: action.payload
             }
         case SET_TOKEN:
             return {

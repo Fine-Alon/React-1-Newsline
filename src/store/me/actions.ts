@@ -44,6 +44,24 @@ export const meRequestError: ActionCreator<MeRequestErrorAC> = (error: string) =
     type: ME_REQUEST_ERROR,
     error
 })
+// --------------------------    ME_REQUEST_THUNK   ---------------------------------------//
+export const meRequestAsync = (): ThunkAction<void, RootState, unknown, Action<string>> =>
+    (dispatch, getState) => {
+
+        dispatch(meRequest())
+        axios
+            .get('https://oauth.reddit.com/api/v1/me.json', {
+                headers: {Authorization: `bearer ${getState().token}`}
+            })
+            .then((res) => {
+                const userData = res.data
+                dispatch(meRequestSuccess({iconImg: userData.icon_img, name: userData.name}))
+            })
+            .catch(error => {
+                console.log(error)
+                dispatch(meRequestError(String(error)))
+            })
+    }
 // --------------------------    UPDATE_COMMENT   ---------------------------------------//
 export const UPDATE_COMMENT = 'UPDATE_COMMENT'
 
@@ -68,24 +86,7 @@ export type SetTokenAC = {
 export const setTokenAC: ActionCreator<SetTokenAC> = (payload: string) => ({
     type: SET_TOKEN, payload,
 })
-// --------------------------    ME_REQUEST_ASYNC   ---------------------------------------//
-export const meRequestAsync = (): ThunkAction<void, RootState, unknown, Action<string>> =>
-    (dispatch, getState) => {
 
-        dispatch(meRequest())
-        axios
-            .get('https://oauth.reddit.com/api/v1/me.json', {
-                headers: {Authorization: `bearer ${getState().token}`}
-            })
-            .then((res) => {
-                const userData = res.data
-                dispatch(meRequestSuccess({iconImg: userData.icon_img, name: userData.name}))
-            })
-            .catch(error => {
-                console.log(error)
-                dispatch(meRequestError(String(error)))
-            })
-    }
 // --------------------------    SAVE_TOKEN   ---------------------------------------//
 export const saveToken = (): ThunkAction<void, RootState, unknown, any> =>
     (dispatch, getState) => {
@@ -127,12 +128,12 @@ export const setPost = (): ThunkAction<void, RootState, unknown, MyAction> =>
 
         if (token && token.length > 0 || token !== undefined) {
             try {
-                const response = await
+                const {data: {data: {children}}} = await
                     axios.get("https://oauth.reddit.com/best.json?sr_detail=true", {
                         headers: {Authorization: `bearer ${token}`},
                         params: {limit: 10, count: 3}
                     })
-                const bestPostArr = response.data.data.children.map((data: { data: any }) => ({
+                const bestPostArr = children.map((data: { data: any }) => ({
                     id: data.data.id,
                     subreddit: data.data.subreddit,
                     title: data.data.title,
@@ -143,10 +144,23 @@ export const setPost = (): ThunkAction<void, RootState, unknown, MyAction> =>
                     ups: data.data.ups,
                     url: data.data.url,
                 }))
+                dispatch(setPostsErrorAC(''))
                 dispatch(setPostsAC(bestPostArr))
 
-            } catch (error) {
-                console.log("Error fetching posts:", error)
+            } catch (error: any) {
+                dispatch(setPostsErrorAC(error.message))
             }
         }
     }
+// --------------------------    SET_POSTS_ERROR   ---------------------------------------//
+export const SET_POSTS_ERROR = 'SET_POSTS_ERROR'
+
+export type SetPostsErrorAC = {
+    type: typeof SET_POSTS_ERROR
+    payload: string
+}
+
+export const setPostsErrorAC: ActionCreator<SetPostsErrorAC> = (error: string) => ({
+    type: SET_POSTS_ERROR,
+    payload: error
+})
