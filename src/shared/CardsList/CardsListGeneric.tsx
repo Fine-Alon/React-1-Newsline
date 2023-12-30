@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styles from './cardslist.css';
 import {Card} from './Card';
 import {GenericList} from "../GenericList";
@@ -18,9 +18,10 @@ export function CardsListGeneric() {
     const postArr = useSelector<RootState, IPostContext[]>(state => state.posts)
     const postArrError = useSelector<RootState, string>(state => state.postsError)
     const [isPending, setIsPending] = useState(true)
+    const bottomOfList = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        postArr.length ? setIsPending(false) : setIsPending(true)
+        setIsPending(postArr.length === 0)
     }, [postArr.length]);
 
     const cardArr = postArr.map(post => (
@@ -41,14 +42,40 @@ export function CardsListGeneric() {
         }
     ))
 
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting) {
+                    console.log('end!!!', entries);
+                }
+            },
+            {threshold: 0, rootMargin: '100px'}
+        )
+
+        if (bottomOfList.current) {
+            observer.observe(bottomOfList.current)
+        }
+
+        // Cleanup function
+        return () => {
+            if (bottomOfList.current) {
+                observer.unobserve(bottomOfList.current)
+            }
+        }
+    }, [bottomOfList.current]);
+
     return (
-        <ul className={styles.cardsList}>
-            {postArrError && <div role={"alert"} style={{display: 'flex', color: 'darkred', justifyContent: 'center'}}>
-                {postArrError}
-            </div>}
-            {!postArrError && isPending &&
-                <div role={"alert"} style={{display: 'flex', justifyContent: 'center'}}>Loading...</div>}
+        <ul className={styles.cards_list}>
+            {postArr.length === 0 && !postArrError && !isPending &&
+                <div role={"alert"} style={{color: 'darkblue', textAlign: 'center'}}>NO POSTS YET...</div>}
+
             <GenericList list={cardArr}/>
+            <div ref={bottomOfList}/>
+
+            {postArrError && <div role={"alert"} style={{color: 'darkred', textAlign: 'center'}}>{postArrError}</div>}
+
+            {!postArrError && isPending && <div role={"alert"} style={{textAlign: 'center'}}>Loading...</div>}
+
         </ul>
     );
 }

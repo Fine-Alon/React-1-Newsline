@@ -1,7 +1,7 @@
 @media all and (min-width: 1024px) {
-  .cardsList {
+  .cards_list {
     padding: 40px 0;
 
   }
 }
-.cardsList { min-height: 900px}
+.cards_list { min-height: 900px}
