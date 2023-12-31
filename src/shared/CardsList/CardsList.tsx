@@ -1,15 +1,15 @@
-import React, { useEffect} from 'react';
+import React, {useEffect} from 'react';
 import styles from './cardslist.css';
 import cardStyles from "./Card/card.css";
 import {Card} from "./Card";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/reduser";
-import {IPostContext} from "../../store/me/actions";
+import {IPostContext} from "../../store/posts/actions";
 
 export const CardsList = () => {
 
     // const postArr = useContext(postContext)
-    const postArr = useSelector<RootState,IPostContext[]>(state => state.posts)
+    const postArr = useSelector<RootState, IPostContext[]>(state => state.posts.posts)
 
     useEffect(() => {
         console.log(postArr)

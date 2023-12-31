@@ -3,11 +3,9 @@ import styles from './cardslist.css';
 import {Card} from './Card';
 import {GenericList} from "../GenericList";
 import cardStyles from "./Card/card.css";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/reduser";
-import {IPostContext} from "../../store/me/actions";
-import {MeState} from "../../store/me/reduser";
-import {log} from "util";
+import {IPostContext, setPost} from "../../store/posts/actions";
 
 const onDeletePost = (id: string) => {
     console.log(id)
@@ -15,10 +13,12 @@ const onDeletePost = (id: string) => {
 
 export function CardsListGeneric() {
     // const postArr = useContext(postContext)
-    const postArr = useSelector<RootState, IPostContext[]>(state => state.posts)
-    const postArrError = useSelector<RootState, string>(state => state.postsError)
+    const postArr = useSelector<RootState, IPostContext[]>(state => state.posts.posts)
+    const postArrError = useSelector<RootState, string>(state => state.posts.postsError)
+    const after = useSelector<RootState, string>(state => state.posts.after)
     const [isPending, setIsPending] = useState(true)
     const bottomOfList = useRef<HTMLDivElement>(null)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         setIsPending(postArr.length === 0)
@@ -43,10 +43,14 @@ export function CardsListGeneric() {
     ))
 
     useEffect(() => {
+
         const observer = new IntersectionObserver(
             (entries) => {
                 if (entries[0].isIntersecting) {
-                    console.log('end!!!', entries);
+                    console.log('end!!!', entries)
+
+                    dispatch<any>(setPost(after))
+                    console.log('after', after)
                 }
             },
             {threshold: 0, rootMargin: '100px'}
@@ -62,7 +66,7 @@ export function CardsListGeneric() {
                 observer.unobserve(bottomOfList.current)
             }
         }
-    }, [bottomOfList.current]);
+    }, [postArr, bottomOfList.current, after, dispatch]);
 
     return (
         <ul className={styles.cards_list}>
