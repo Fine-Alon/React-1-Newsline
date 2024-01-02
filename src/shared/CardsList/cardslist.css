@@ -1,7 +1,28 @@
 @media all and (min-width: 1024px) {
-  .cards_list {
-    padding: 40px 0;
+    .cards_list {
+        padding: 40px 0;
 
-  }
+    }
 }
-.cards_list { min-height: 900px}
+
+.cards_list {
+    min-height: 900px
+}
+
+.loadMore_btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    color: var(--black);
+    background-color: var(--orange);
+    font-size: 30px;
+    transition: font-weight .1s ease-in-out, background-color .1s ease-in-out;
+}
+
+.loadMore_btn:hover {
+    font-weight: bolder;
+}
+
+.loadMore_btn:active {
+    background-color: #cb480f;
+}

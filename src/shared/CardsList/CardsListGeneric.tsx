@@ -16,9 +16,17 @@ export function CardsListGeneric() {
     const postArr = useSelector<RootState, IPostContext[]>(state => state.posts.posts)
     const postArrError = useSelector<RootState, string>(state => state.posts.postsError)
     const after = useSelector<RootState, string>(state => state.posts.after)
-    const [isPending, setIsPending] = useState(true)
     const bottomOfList = useRef<HTMLDivElement>(null)
+    const [isPending, setIsPending] = useState(true)
+    const [loadMoreBtn, setLoadMoreBtn] = useState(false)
+    const [autoLoadCounter, setAutoLoadCounter] = useState(2);
+    const [isAllowAutoLoad, setIsAllowAutoLoad] = useState(true)
     const dispatch = useDispatch()
+
+    const handleLoadMoreClick = () => {
+        dispatch<any>(setPost(after));
+        setAutoLoadCounter(2);
+    }
 
     useEffect(() => {
         setIsPending(postArr.length === 0)
@@ -44,16 +52,26 @@ export function CardsListGeneric() {
 
     useEffect(() => {
 
-        const observer = new IntersectionObserver(
-            (entries) => {
+        const observer = new IntersectionObserver((entries) => {
                 if (entries[0].isIntersecting) {
-                    console.log('end!!!', entries)
+                    console.log('isAllowAutoLoad:', isAllowAutoLoad)
+                    console.log('autoLoadCounter:', autoLoadCounter)
 
-                    dispatch<any>(setPost(after))
-                    console.log('after', after)
+                    if (autoLoadCounter > 0 && isAllowAutoLoad) {
+                        setLoadMoreBtn(false);
+                        dispatch<any>(setPost(after));
+                        setIsAllowAutoLoad(false)
+                        setAutoLoadCounter(autoLoadCounter - 1)
+                        if (autoLoadCounter > 0) {
+                            setIsAllowAutoLoad(true)
+                        }
+                    } else if (autoLoadCounter === 0) {
+                        setIsAllowAutoLoad(true)
+                        setLoadMoreBtn(true)
+                    }
                 }
             },
-            {threshold: 0, rootMargin: '100px'}
+            {threshold: 0, rootMargin: '40px'}
         )
 
         if (bottomOfList.current) {
@@ -74,6 +92,9 @@ export function CardsListGeneric() {
                 <div role={"alert"} style={{color: 'darkblue', textAlign: 'center'}}>NO POSTS YET...</div>}
 
             <GenericList list={cardArr}/>
+
+            {loadMoreBtn && (<button className={styles.loadMore_btn} onClick={handleLoadMoreClick}>LOAD MORE</button>)}
+
             <div ref={bottomOfList}/>
 
             {postArrError && <div role={"alert"} style={{color: 'darkred', textAlign: 'center'}}>{postArrError}</div>}
